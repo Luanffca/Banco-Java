@@ -9,14 +9,22 @@ public  class Conta {
 	private String agencia;
 	private String numero;
 	private float saldo;
+	private int senha;
 
 	List<Cliente> clienteCP = new ArrayList<>();
 	List<Historico> historicos = new ArrayList<>();
 
-	public Conta(String agencia, String numero, float saldo){
+	public Conta(String agencia, String numero, float saldo, int senha){
 		this.agencia = agencia;
 		this.numero = numero;
 		this.saldo = saldo;
+		this.senha = senha;
+	}
+
+	public Conta(String agencia, String numero, int senha){
+		this.agencia = agencia;
+		this.numero = numero;
+		this.senha = senha;
 	}
 
 	public float getSaldo(){
@@ -25,6 +33,14 @@ public  class Conta {
 
 	public void setSaldo(float saldo) {
 		this.saldo=saldo;
+	}
+
+	public float getSenha(){
+		return this.saldo;
+	}
+
+	public void setSenha(int senha) {
+		this.senha=senha;
 	}
 
 	public String getAgencia(){
@@ -85,5 +101,9 @@ public  class Conta {
 		System.out.println("-------------------------");
 		System.out.println("Saldo: " + saldo);
 		System.out.println("-------------------------");
+	}
+
+	public float nextFloat() {
+		return 0;
 	}
 }

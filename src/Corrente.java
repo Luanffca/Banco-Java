@@ -10,10 +10,12 @@ public class Corrente extends Conta{
 	List<Historico> historicos = new ArrayList<>();
 
 	
-    public Corrente(String agencia, String numero, float saldo) {
-        super(agencia, numero, saldo);
+    public Corrente(String agencia, String numero, float saldo, int senha) {
+        super(agencia, numero, saldo, senha);
     }
-
+	public Corrente(String agencia, String numero,int senha) {
+        super(agencia, numero, senha);
+    }
     public void depositar(float valor) {
 		if (valor < 0) {
 			System.out.println("** Depósito: Operação inválida");

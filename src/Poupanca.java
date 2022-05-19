@@ -10,10 +10,21 @@ public class Poupanca extends Conta {
     List<Historico> historicos = new ArrayList<>();
 	//List<Cliente> clientesCP = new ArrayList<>();
 
-    public Poupanca(String agencia, String numero, float saldo) {
-        super(agencia, numero, saldo);
+    public Poupanca(String agencia, String numero, float saldo,int senha) {
+        super(agencia, numero, saldo, senha);
     }
 
+	public Poupanca(String agencia, String numero, int senha) {
+        super(agencia, numero, senha);
+    }
+
+	public boolean conferesenha(int senha){
+		if(getSenha() == senha){
+			return true;
+		}else{
+			return false;
+		}
+	}
     public void depositar(float valor) {
 		if (valor < 0) {
 			System.out.println("** Depósito: Operação inválida");

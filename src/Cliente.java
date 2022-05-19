@@ -11,11 +11,11 @@ public class Cliente {
 	private String cpf;
 	private String endereco;
 	private String dataNascimento;
-
+	private int senha;
 	Cliente(){
 	}
 	
-	Cliente(String nome, String rg, String cpf, String endereco, String dataNascimento){
+	Cliente(String nome, String rg, String cpf, String endereco, String dataNascimento, int senha){
 		this.nome = nome;
 		this.rg = rg;
 		if(isCPF(cpf) == true){
@@ -26,6 +26,7 @@ public class Cliente {
 		}
 		this.endereco = endereco;
 		this.dataNascimento = dataNascimento;
+		this.senha = senha;
 	}
 
 	public String getNome(){
@@ -74,7 +75,6 @@ public class Cliente {
 	}
 
     public boolean isCPF(String CPF) {
-        // considera-se erro CPF's formados por uma sequencia de numeros iguais
         if (CPF.equals("00000000000") ||
             CPF.equals("11111111111") ||
             CPF.equals("22222222222") || CPF.equals("33333333333") ||
@@ -87,15 +87,11 @@ public class Cliente {
         char dig10, dig11;
         int sm, i, r, num, peso;
 
-        // "try" - protege o codigo para eventuais erros de conversao de tipo (int)
         try {
-        // Calculo do 1o. Digito Verificador
             sm = 0;
             peso = 10;
             for (i=0; i<9; i++) {
-        // converte o i-esimo caractere do CPF em um numero:
-        // por exemplo, transforma o caractere '0' no inteiro 0
-        // (48 eh a posicao de '0' na tabela ASCII)
+       
             num = (int)(CPF.charAt(i) - 48);
             sm = sm + (num * peso);
             peso = peso - 1;
@@ -104,9 +100,9 @@ public class Cliente {
             r = 11 - (sm % 11);
             if ((r == 10) || (r == 11))
                 dig10 = '0';
-            else dig10 = (char)(r + 48); // converte no respectivo caractere numerico
+            else dig10 = (char)(r + 48); 
 
-        // Calculo do 2o. Digito Verificador
+
             sm = 0;
             peso = 11;
             for(i=0; i<10; i++) {
@@ -119,7 +115,6 @@ public class Cliente {
                  dig11 = '0';
             else dig11 = (char)(r + 48);
 
-        // Verifica se os digitos calculados conferem com os digitos informados.
             if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
                  return(true);
             else return(false);
@@ -152,12 +147,13 @@ public class Cliente {
 		System.out.println("Informe sua Data de Naascimento: ");
 		dataNascimento = sc.nextLine();
 		System.out.println("_________________________________________"); 
-		Cliente cp = new Cliente(nome,rg,cpf,endereco,dataNascimento);
+		Cliente cp = new Cliente(nome,rg,cpf,endereco,dataNascimento,senha);
 		toString();
 	}
 
 	public void CadastraCC(){
 		String nome,rg,cpf,endereco,dataNascimento;
+		int senha;
 		System.out.println("_________________________________________"); 
 		System.out.println("Informe seu Nome Completo: ");
 		nome = sc.nextLine();
@@ -167,10 +163,12 @@ public class Cliente {
 		cpf = sc.nextLine();
 		System.out.println("Informe seu Endereco: ");
 		endereco = sc.nextLine();
-		System.out.println("Informe sua Data de Naascimento: ");
+		System.out.println("Informe sua Data de Nascimento: ");
 		dataNascimento = sc.nextLine();
+		System.out.println("Informe sua Senha: ");
+		senha = sc.nextInt();
 		System.out.println("_________________________________________"); 
-		Cliente cp = new Cliente(nome,rg,cpf,endereco,dataNascimento);
+		Cliente cc = new Cliente(nome,rg,cpf,endereco,dataNascimento,senha);
 		toString();
 	}
 }
