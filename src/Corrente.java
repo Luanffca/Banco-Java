@@ -1,24 +1,42 @@
 import java.time.Instant;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Corrente extends Conta{
 	Scanner sc = new Scanner(System.in);
 	List<Cliente> clienteCC = new ArrayList<>();
 	List<Historico> historicos = new ArrayList<>();
+	private double taxa;
+	private double limite;
 
-	public Corrente(){
+	Corrente(){}
 
+	Corrente(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha,int agencia, int numero,int operacao){
+		super(nome, rg, cpf, endereco, dataNascimento, email, senha, agencia, operacao, numero);
 	}
-	
-    public Corrente(String agencia, int numero,int operacao, double saldo, int senha) {
-        super(agencia, numero, operacao, saldo, senha);
-    }
-	public Corrente(String agencia, int numero, int operacao, int senha) {
-        super(agencia, numero, operacao, senha);
-    }
+
+	public double getTaxa(){
+		return this.taxa;
+	}
+
+	public void setTaxa(double taxa){
+		this.taxa = taxa;
+	}
+
+	public double getLimite(){
+		return this.limite;
+	}
+
+	public void setLimite(double limite){
+		this.limite = limite;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "\n Conta Corrente - Taxa: "+ getTaxa() + " Limite: "+ getLimite();
+	}
     public void depositar(double valor) {
 		if (valor < 0) {
 			System.out.println("** Depósito: Operação inválida");
@@ -60,5 +78,40 @@ public class Corrente extends Conta{
 		System.out.println("Saldo: " + getSaldo());
 		System.out.println("-------------------------");
 	}
+	
+	public boolean EntarConta(String email, int senha){
+		if (getEmail() == email && getSenha() == senha){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 
+	public void CadastraCC(){
+		String nome,rg,cpf,endereco,dataNascimento, email;
+		int senha;
+		System.out.println("_________________________________________"); 
+		System.out.println("Informe seu Nome Completo: ");
+		nome = sc.nextLine();
+		System.out.println("Informe seu RG: ");
+		rg = sc.nextLine();
+		System.out.println("Informe seu CPF: ");
+		cpf = sc.nextLine();
+		System.out.println("Informe seu Endereco: ");
+		endereco = sc.nextLine();
+		System.out.println("Informe sua Data de Nascimento: ");
+		dataNascimento = sc.nextLine();
+		System.out.println("Informe seu email: ");
+		email = sc.nextLine();
+		System.out.println("Informe sua Senha: ");
+		senha = sc.nextInt();
+		System.out.println("_________________________________________"); 
+		Random num = new Random();
+        int numero = num.nextInt(9999);
+		Corrente cc = new Corrente(nome, rg, cpf, endereco, dataNascimento, email, senha, 0742, 012, numero);
+		System.out.println(cc.toString());
+	}
+
+	
 }

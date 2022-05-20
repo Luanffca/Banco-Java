@@ -9,8 +9,10 @@ public class App {
 	
 	private static void dadosConta() {
 		Scanner sc = new Scanner(System.in);
-		Conta conta = null;
-		List<Conta> listaConta = new ArrayList<Conta>();
+		Corrente contaCorrente = null;
+		Poupanca contaPoupanca = null;
+		List<Poupanca> ListaPoupanca = new ArrayList<Poupanca>();
+		List<Corrente> ListaCorrente = new ArrayList<Corrente>();
 		int opcao = 0;
 		do{
 			System.out.println("## Escolha uma das opções abaixo. ##");
@@ -23,17 +25,16 @@ public class App {
 			opcao = sc.nextInt();
 			switch (opcao){
 			case 1:
-				System.out.println("Numero da Agencia:");
-				String agencia = sc.next();
 				System.out.println("Numero da operacao:");
 				int operacao = sc.nextInt();
-				System.out.println("Numero da Conta:");
-				int numero_conta = sc.nextInt();
+				System.out.println("Seu email:");
+				String email = sc.next();
 				System.out.println("Numero da senha:");
 				int senha = sc.nextInt();
 				switch (operacao){
 					case 12: // Corrente
-						Conta cc = new Corrente(agencia, numero_conta, operacao, senha);
+						Corrente cc = new Corrente();
+						cc.EntarConta(email, senha);
 						System.out.println("## Escolha uma das opções abaixo. ##");
 						System.out.println("________________________________________"); 
 						System.out.println("Opção 0 - Cancelar operacao");
@@ -55,37 +56,65 @@ public class App {
 							cc.depositar(valor_saque);
 						break;
 						case 3:
-							cc.verExtrato();;
+							if(ListaCorrente.isEmpty()==false){
+								System.out.println("Historico:");
+								contaCorrente.verExtrato();
+								sc.nextLine();
+							}else{
+								System.out.println(ListaCorrente.toString());  
+								System.out.println("Pressione um tecla para continuar.");
+								sc.nextLine();
+							}
+							//cc.verExtrato();;
 						break;
 					}
 				break;
 				case 13: // poupanca
-					Conta cp = new Poupanca(agencia, numero_conta, operacao, senha);
-						System.out.println("## Escolha uma das opções abaixo. ##");
-						System.out.println("________________________________________"); 
-						System.out.println("Opção 0 - Cancelar operacao");
-						System.out.println("Opção 1 - Depositar.");
-						System.out.println("Opção 2 - Sacar");
-						System.out.println("Opção 3 - Extrato");
-						System.out.println("_________________________________________"); 
-						System.out.println("Digite aqui sua opção: ");
-						int op = sc.nextInt();
-					switch (op){
-						case 1:
-							System.out.println("Valor a Depositar");
-							float valor_Desposito = sc.nextFloat();
-							cp.depositar(valor_Desposito);
-						break;
-						case 2:
-							System.out.println("Valor de saque");
-							float valor_saque = sc.nextFloat();
-							cp.depositar(valor_saque);
-						break;
-						case 3:
-							cp.verExtrato();
-						break;
-					}
-				break;
+						Poupanca cp = new Poupanca();
+						int op;	
+					do {
+						if(cp.EntarConta(email, senha) == true){
+								System.out.println("## Escolha uma das opções abaixo. ##");
+								System.out.println("________________________________________"); 
+								System.out.println("Opção 0 - Cancelar operacao");
+								System.out.println("Opção 1 - Depositar.");
+								System.out.println("Opção 2 - Sacar");
+								System.out.println("Opção 3 - Extrato");
+								System.out.println("_________________________________________"); 
+								System.out.println("Digite aqui sua opção: ");
+								op = sc.nextInt();
+								switch (op){
+									case 1:
+										System.out.println("Valor a Depositar");
+										float valor_Desposito = sc.nextFloat();
+										cp.depositar(valor_Desposito);
+									break;
+									case 2:
+										System.out.println("Valor de saque");
+										float valor_saque = sc.nextFloat();
+										cp.depositar(valor_saque);
+									break;
+									case 3:
+										if(ListaPoupanca.isEmpty()==false){
+											System.out.println("Historico:");
+											contaPoupanca.verExtrato();
+											sc.nextLine();
+										}else{
+											System.out.println(ListaPoupanca.toString());  
+											System.out.println("Pressione um tecla para continuar.");
+											sc.nextLine();
+										}
+											//cp.verExtrato();
+									break;
+								}
+						}
+						else{
+							System.out.println("Senha ou Email invalido");
+							//return false;
+							break;
+						}
+					break;
+				}while(op != 0);
 			}
 			break;
 			case 2:
@@ -97,12 +126,14 @@ public class App {
 				int op = sc.nextInt();
 				switch (op){
 					case 13:
-						Cliente cliente = new Cliente();
-						cliente.CadastraCP();
+						Corrente cc = new Corrente();
+						cc.CadastraCC();
+						ListaCorrente.add(contaCorrente);
 						break;
 					case 12:
-						Cliente clientes = new Cliente();
-						clientes.CadastraCC();
+						Poupanca cp = new Poupanca();
+						cp.CadastraCP();
+						ListaPoupanca.add(contaPoupanca);
 						break;
 					default:
 						System.out.println("Opcao invalida!");

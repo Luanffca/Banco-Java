@@ -1,43 +1,31 @@
 import java.time.Instant;
-
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Scanner;
 
-public  class Conta {
+public  class Conta extends Cliente {
 
-	private String agencia;
+	private int agencia;
 	private int operacao;
 	private int numero;
-	private double saldo;
-	private int senha;
+	protected double saldo = 0;
 
-	List<Cliente> clienteCP = new ArrayList<>();
 	List<Historico> historicos = new ArrayList<>();
 
 	Conta(){}
 
-	public Conta(String agencia, int numero, int operacao, double saldo, int senha){
+	Conta(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha, int agencia, int operacao, int numero){
+		super(nome, rg, cpf, endereco, dataNascimento, email, senha);
 		this.agencia = agencia;
 		this.numero = numero;
 		this.operacao = operacao;
-		this.saldo = saldo;
-		this.senha = senha;
-	}
-	public Conta(String agencia, int numero, int operacao, double saldo){
-		this.agencia = agencia;
-		this.numero = numero;
-		this.operacao = operacao;
-		this.saldo = saldo;
 	}
 
-	public Conta(String agencia, int numero,int operacao, int senha){
+	public Conta(int agencia, int numero, int operacao){
 		this.agencia = agencia;
 		this.numero = numero;
 		this.operacao = operacao;
-		this.senha = senha;
 	}
-
+	
 	public double getSaldo(){
 		return this.saldo;
 	}
@@ -46,19 +34,11 @@ public  class Conta {
 		this.saldo=saldo;
 	}
 
-	public int getSenha(){
-		return this.senha;
-	}
-
-	public void setSenha(int senha) {
-		this.senha=senha;
-	}
-
-	public String getAgencia(){
+	public int getAgencia(){
 		return this.agencia;
 	}
 
-	public void setAgencia(String agencia) {
+	public void setAgencia(int agencia) {
 		this.agencia = agencia;
 	}
 
@@ -91,7 +71,6 @@ public  class Conta {
 			h.setData(Instant.now().toString());
 			historicos.add(h);
 		}	
-		
 	}
 
 	public void sacar(double valor) {
@@ -110,6 +89,12 @@ public  class Conta {
 		
 	}
 
+	//public Boolean transferir(double valor, Conta operacao, Conta numero) {
+   //     if (sacar(valor) && getOperacao() == operacao && getNumero() == numero){
+	//		return true;} 
+    //    return false;
+    //}
+
 	public void verExtrato() {
 		System.out.println("-------------------------");
 		for (int i = 0; i < historicos.size(); i++) {
@@ -122,12 +107,8 @@ public  class Conta {
 		System.out.println("-------------------------");
 	}
 
-	public float nextFloat() {
-		return 0;
-	}
-
 	@Override
 	public String toString() {
-		return "\n Agencia: " + getAgencia() + " Operacao: " + getOperacao() + " Numero Conta: "+ getNumero();
+		return super.toString() + "\n Agencia: " + getAgencia() + " Operacao: " + getOperacao() + " Numero Conta: "+ getNumero();
 	}
 }

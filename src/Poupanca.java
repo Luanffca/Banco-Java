@@ -1,32 +1,32 @@
 import java.time.Instant;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Poupanca extends Conta {
 	Scanner sc = new Scanner(System.in);
-	//Cliente clinte = new Cliente();
+	
     List<Historico> historicos = new ArrayList<>();
-	//List<Cliente> clientesCP = new ArrayList<>();
 
 	Poupanca(){}
-	
-    public Poupanca(String agencia, int numero, int operacao, double saldo,int senha) {
-        super(agencia, numero,operacao, saldo, senha);
-    }
+	Poupanca(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha, int agencia, int numero,int operacao){
+		super(nome, rg, cpf, endereco, dataNascimento, email, senha, agencia, operacao, numero);
+	}
 
-	public Poupanca(String agencia, int numero,int operacao, int senha) {
-        super(agencia, numero, operacao, senha);
-    }
-
-	public boolean conferesenha(int senha){
-		if(getSenha() == senha){
+	public boolean EntarConta(String email, int senha){
+		if (getEmail() == email && getSenha() == senha){
 			return true;
-		}else{
+		}
+		else{
 			return false;
 		}
 	}
+
+	public void atualizar(double taxaRendimento) {
+       saldo += saldo  * (taxaRendimento / 100);
+    }
+
     public void depositar(double valor) {
 		if (valor < 0) {
 			System.out.println("** Depósito: Operação inválida");
@@ -69,5 +69,29 @@ public class Poupanca extends Conta {
 		System.out.println("-------------------------");
 	}
     
-	
+	public void CadastraCP(){
+		System.out.println("_________________________________________"); 
+		String nome,rg,cpf,endereco,dataNascimento, email;
+		int senha, numero;
+		System.out.println("_________________________________________"); 
+		System.out.println("Informe seu Nome Completo: ");
+		nome = sc.nextLine();
+		System.out.println("Informe seu RG: ");
+		rg = sc.nextLine();
+		System.out.println("Informe seu CPF: ");
+		cpf = sc.nextLine();
+		System.out.println("Informe seu Endereco: ");
+		endereco = sc.nextLine();
+		System.out.println("Informe sua Data de Nascimento: ");
+		dataNascimento = sc.nextLine();
+		System.out.println("Informe seu email: ");
+		email = sc.nextLine();
+		System.out.println("Informe sua Senha: ");
+		senha = sc.nextInt();
+		System.out.println("_________________________________________");
+		Random num = new Random();
+        numero = num.nextInt(9999);
+		Corrente cp = new Corrente(nome, rg, cpf, endereco, dataNascimento, email, senha, 0742, 012, numero);
+		System.out.println(cp.toString());
+	}
 }

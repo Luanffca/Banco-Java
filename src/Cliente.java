@@ -2,7 +2,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Cliente {
 	Scanner sc = new Scanner(System.in);
@@ -15,10 +14,9 @@ public class Cliente {
 	private String dataNascimento;
 	private String email;
 	private int senha;
-	private boolean corrente;
-	private boolean poupanca;
 	
 	Cliente(){}
+
 	Cliente(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha){
 		this.nome = nome;
 		this.rg = rg;
@@ -79,6 +77,22 @@ public class Cliente {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public String getEmail(){
+		return this.email;
+	}
+
+	public void setEmail(String email){
+		this.email = email;
+	}
+
+	public int getSenha(){
+		return this.senha;
+	}
+
+	public void setSenha(int senha){
+		this.senha = senha;
+	}
+
     public boolean isCPF(String CPF) {
         if (CPF.equals("00000000000") ||
             CPF.equals("11111111111") ||
@@ -132,63 +146,9 @@ public class Cliente {
             CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
         }
 
+	
+    @Override
 	public String toString(){
 		return " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco()+"\n Data Nascimento: "+ getDatanascimento();
-
-	}
-
-	
-    
-	public void CadastraCP(){
-		System.out.println("_________________________________________"); 
-		String nome,rg,cpf,endereco,dataNascimento;
-		System.out.println("Informe seu Nome Completo: ");
-		nome = sc.nextLine();
-		System.out.println("Informe seu RG: ");
-		rg = sc.nextLine();
-		System.out.println("Informe seu CPF: ");
-		cpf = sc.nextLine();
-		System.out.println("Informe seu Endereco: ");
-		endereco = sc.nextLine();
-		System.out.println("Informe sua Data de Naascimento: ");
-		dataNascimento = sc.nextLine();
-		System.out.println("Informe seu email: ");
-		email = sc.nextLine();
-		System.out.println("Informe sua Data de Nascimento: ");
-		dataNascimento = sc.nextLine();
-		System.out.println("_________________________________________"); 
-		Cliente ccp = new Cliente(nome,rg,cpf,endereco,dataNascimento,email, senha);
-		System.out.println(ccp.toString());
-		Random numero = new Random();
-        int contanum = numero.nextInt(9999);
-		Conta cp = new Conta("0742", contanum, 13, 0.0);
-		System.out.println(cp.toString());
-	}
-
-	public void CadastraCC(){
-		String nome,rg,cpf,endereco,dataNascimento, email;
-		int senha;
-		System.out.println("_________________________________________"); 
-		System.out.println("Informe seu Nome Completo: ");
-		nome = sc.nextLine();
-		System.out.println("Informe seu RG: ");
-		rg = sc.nextLine();
-		System.out.println("Informe seu CPF: ");
-		cpf = sc.nextLine();
-		System.out.println("Informe seu Endereco: ");
-		endereco = sc.nextLine();
-		System.out.println("Informe sua Data de Nascimento: ");
-		dataNascimento = sc.nextLine();
-		System.out.println("Informe seu email: ");
-		email = sc.nextLine();
-		System.out.println("Informe sua Senha: ");
-		senha = sc.nextInt();
-		System.out.println("_________________________________________"); 
-		Cliente cc = new Cliente(nome,rg,cpf,endereco,dataNascimento, email, senha);
-		System.out.println(cc.toString());
-		Random numero = new Random();
-        int contanum = numero.nextInt(9999);
-		Conta cp = new Conta("0742", contanum, 12, 0.0);
-		System.out.println(cp.toString());
 	}
 }

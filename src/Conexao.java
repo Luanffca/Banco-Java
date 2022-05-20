@@ -54,7 +54,7 @@ public class Conexao {
             conn = DriverManager.getConnection(url, user, password);
             stm = conn.createStatement();
             String sql = "insert int pessoa (NOME,RG,CPF,DT_NASCIMENTO,SENHA, AGENCIA,OPERACAO,NUMERO_CONTA,SALDO)" + 
-                        "values(Luan Fernandes de Franca, 123456789, 529.982.247-25, 06/02/2004, 1939, 0742, 13, 2456, 15000.00)";
+                        "values(Luan Fernandes de Franca, 123456789, , 06/02/2004, 1939, 0742, 13, 2456, 15000.00)";
             stm.executeUpdate(sql);
             conn.close(); 
         } catch (Exception e) {
