@@ -7,36 +7,47 @@ import java.util.List;
 public  class Conta {
 
 	private String agencia;
-	private String numero;
-	private float saldo;
+	private int operacao;
+	private int numero;
+	private double saldo;
 	private int senha;
 
 	List<Cliente> clienteCP = new ArrayList<>();
 	List<Historico> historicos = new ArrayList<>();
 
-	public Conta(String agencia, String numero, float saldo, int senha){
+	Conta(){}
+
+	public Conta(String agencia, int numero, int operacao, double saldo, int senha){
 		this.agencia = agencia;
 		this.numero = numero;
+		this.operacao = operacao;
 		this.saldo = saldo;
 		this.senha = senha;
 	}
-
-	public Conta(String agencia, String numero, int senha){
+	public Conta(String agencia, int numero, int operacao, double saldo){
 		this.agencia = agencia;
 		this.numero = numero;
+		this.operacao = operacao;
+		this.saldo = saldo;
+	}
+
+	public Conta(String agencia, int numero,int operacao, int senha){
+		this.agencia = agencia;
+		this.numero = numero;
+		this.operacao = operacao;
 		this.senha = senha;
 	}
 
-	public float getSaldo(){
+	public double getSaldo(){
 		return this.saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(double saldo) {
 		this.saldo=saldo;
 	}
 
-	public float getSenha(){
-		return this.saldo;
+	public int getSenha(){
+		return this.senha;
 	}
 
 	public void setSenha(int senha) {
@@ -51,15 +62,23 @@ public  class Conta {
 		this.agencia = agencia;
 	}
 
-	public String getNumero(){
+	public int getNumero(){
 		return this.numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 
-	public void depositar(float valor) {
+	public int getOperacao(){
+		return this.operacao;
+	}
+
+	public void setOperacao(int operacao) {
+		this.operacao = operacao;
+	}
+
+	public void depositar(double valor) {
 		if (valor < 0) {
 			System.out.println("** Depósito: Operação inválida");
 		} else {
@@ -67,7 +86,7 @@ public  class Conta {
 			System.out.println("** Depósito: Operação realizada com sucessor!");
 			Historico h = new Historico();
 			h.setOperacao("Depósito");
-			float depositor = valor;
+			double depositor = valor;
 			h.setDetalhes("Valor do depósito: " + depositor);
 			h.setData(Instant.now().toString());
 			historicos.add(h);
@@ -75,7 +94,7 @@ public  class Conta {
 		
 	}
 
-	public void sacar(float valor) {
+	public void sacar(double valor) {
 		if (valor > saldo || valor < 0) {
 			System.out.println("** Saque: Saldo insuficiente");
 		} else {
@@ -83,7 +102,7 @@ public  class Conta {
 			System.out.println("** Saque: Operação realizada com sucessor");
 			Historico h = new Historico();
 			h.setOperacao("Saque");
-			float sacar = valor;
+			double sacar = valor;
 			h.setDetalhes("Valor do saque: " + sacar);
 			h.setData(Instant.now().toString());
 			historicos.add(h);
@@ -105,5 +124,10 @@ public  class Conta {
 
 	public float nextFloat() {
 		return 0;
+	}
+
+	@Override
+	public String toString() {
+		return "\n Agencia: " + getAgencia() + " Operacao: " + getOperacao() + " Numero Conta: "+ getNumero();
 	}
 }

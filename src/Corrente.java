@@ -9,29 +9,32 @@ public class Corrente extends Conta{
 	List<Cliente> clienteCC = new ArrayList<>();
 	List<Historico> historicos = new ArrayList<>();
 
+	public Corrente(){
+
+	}
 	
-    public Corrente(String agencia, String numero, float saldo, int senha) {
-        super(agencia, numero, saldo, senha);
+    public Corrente(String agencia, int numero,int operacao, double saldo, int senha) {
+        super(agencia, numero, operacao, saldo, senha);
     }
-	public Corrente(String agencia, String numero,int senha) {
-        super(agencia, numero, senha);
+	public Corrente(String agencia, int numero, int operacao, int senha) {
+        super(agencia, numero, operacao, senha);
     }
-    public void depositar(float valor) {
+    public void depositar(double valor) {
 		if (valor < 0) {
 			System.out.println("** Depósito: Operação inválida");
 		} else {
 			setSaldo(valor);
-			System.out.println("** Depósito: Operação realizada com sucessor!");
+			System.out.println("** Depósito: Operação realizada com sucesso!");
 			Historico h = new Historico();
 			h.setOperacao("Depósito");
-			float depositor = valor;
+			double depositor = valor;
 			h.setDetalhes("Valor do depósito: " + depositor);
 			h.setData(Instant.now().toString());
 			historicos.add(h);
 		}	
 	}
 
-	public void sacar(float valor) {
+	public void sacar(double valor) {
 		if (valor > getSaldo() || valor < 0) {
 			System.out.println("** Saque: Saldo insuficiente");	
 		} else {
@@ -39,7 +42,7 @@ public class Corrente extends Conta{
 			System.out.println("** Saque: Operação realizada com sucessor");
 			Historico h = new Historico();
 			h.setOperacao("Saque");
-			float sacar = valor;
+			double sacar = valor;
 			h.setDetalhes("Valor do saque: " + sacar);
 			h.setData(Instant.now().toString());
 			historicos.add(h);
