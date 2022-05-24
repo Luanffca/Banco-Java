@@ -2,28 +2,21 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public  class Conta extends Cliente {
+public  class Conta{
 
 	private int agencia;
 	private int operacao;
 	private int numero;
 	protected double saldo = 0;
+	private int senha;
 
 	List<Historico> historicos = new ArrayList<>();
 
-	Conta(){}
-
-	Conta(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha, int agencia, int operacao, int numero){
-		super(nome, rg, cpf, endereco, dataNascimento, email, senha);
+	Conta(int agencia, int operacao, int numero, int senha){
 		this.agencia = agencia;
 		this.numero = numero;
 		this.operacao = operacao;
-	}
-
-	public Conta(int agencia, int numero, int operacao){
-		this.agencia = agencia;
-		this.numero = numero;
-		this.operacao = operacao;
+		this.senha = senha;
 	}
 	
 	public double getSaldo(){
@@ -107,8 +100,10 @@ public  class Conta extends Cliente {
 		System.out.println("-------------------------");
 	}
 
+	/*
 	@Override
 	public String toString() {
 		return super.toString() + "\n Agencia: " + getAgencia() + " Operacao: " + getOperacao() + " Numero Conta: "+ getNumero();
 	}
+	*/
 }

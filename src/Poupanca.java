@@ -9,19 +9,10 @@ public class Poupanca extends Conta {
 	
     List<Historico> historicos = new ArrayList<>();
 
-	Poupanca(){}
-	Poupanca(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha, int agencia, int numero,int operacao){
-		super(nome, rg, cpf, endereco, dataNascimento, email, senha, agencia, operacao, numero);
+	Poupanca(int numero, int senha){
+		super(710, 013, numero, senha);
 	}
 
-	public boolean EntarConta(String email, int senha){
-		if (getEmail() == email && getSenha() == senha){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
 
 	public void atualizar(double taxaRendimento) {
        saldo += saldo  * (taxaRendimento / 100);
@@ -69,29 +60,4 @@ public class Poupanca extends Conta {
 		System.out.println("-------------------------");
 	}
     
-	public void CadastraCP(){
-		System.out.println("_________________________________________"); 
-		String nome,rg,cpf,endereco,dataNascimento, email;
-		int senha, numero;
-		System.out.println("_________________________________________"); 
-		System.out.println("Informe seu Nome Completo: ");
-		nome = sc.nextLine();
-		System.out.println("Informe seu RG: ");
-		rg = sc.nextLine();
-		System.out.println("Informe seu CPF: ");
-		cpf = sc.nextLine();
-		System.out.println("Informe seu Endereco: ");
-		endereco = sc.nextLine();
-		System.out.println("Informe sua Data de Nascimento: ");
-		dataNascimento = sc.nextLine();
-		System.out.println("Informe seu email: ");
-		email = sc.nextLine();
-		System.out.println("Informe sua Senha: ");
-		senha = sc.nextInt();
-		System.out.println("_________________________________________");
-		Random num = new Random();
-        numero = num.nextInt(9999);
-		Corrente cp = new Corrente(nome, rg, cpf, endereco, dataNascimento, email, senha, 0742, 012, numero);
-		System.out.println(cp.toString());
-	}
 }

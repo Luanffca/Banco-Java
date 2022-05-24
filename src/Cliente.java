@@ -1,3 +1,4 @@
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -11,13 +12,10 @@ public class Cliente {
 	private String rg;
 	private String cpf;
 	private String endereco;
-	private String dataNascimento;
 	private String email;
-	private int senha;
-	
-	Cliente(){}
+	private String senha;
 
-	Cliente(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha){
+	Cliente(String nome, String rg, String cpf, String endereco, String email, String senha){
 		this.nome = nome;
 		this.rg = rg;
 		if(isCPF(cpf) == true){
@@ -27,7 +25,6 @@ public class Cliente {
 			System.out.println("Erro, CPF invalido !!!\n");
 		}
 		this.endereco = endereco;
-		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.senha = senha;
 	}
@@ -69,14 +66,6 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public String getDatanascimento(){
-		return this.dataNascimento;
-	}
-
-	public void setDatanascimento(String dataNascimento){
-		this.dataNascimento = dataNascimento;
-	}
-
 	public String getEmail(){
 		return this.email;
 	}
@@ -85,12 +74,20 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public int getSenha(){
+	public String getSenha(){
 		return this.senha;
 	}
 
-	public void setSenha(int senha){
+	public void setSenha(String senha){
 		this.senha = senha;
+	}
+	public Poupanca criaCp(){
+		Poupanca cp = new Poupanca(013, 071);
+		return cp;
+	}
+	public Corrente criaCc(){
+		Corrente cc = new Corrente(001, 071);
+		return cc;
 	}
 
     public boolean isCPF(String CPF) {
@@ -149,6 +146,6 @@ public class Cliente {
 	
     @Override
 	public String toString(){
-		return " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco()+"\n Data Nascimento: "+ getDatanascimento();
+		return " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco();
 	}
 }
