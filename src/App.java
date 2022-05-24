@@ -109,7 +109,7 @@ public class App {
         Entrar.setBackground(Color.white);
         Entrar.setLayout(null);
         
-        Entrar.setVisible(false);
+        Entrar.setVisible(true);
         Entrar.add(textos.textosAlinhados("Entrar", 0, 110, 300, 40, 30, corAzul));
         Entrar.add(botaoRegister);
         Entrar.add(usuario);
@@ -179,7 +179,7 @@ public class App {
         Inicio.setBackground(Color.white);
         Inicio.setLayout(null);
         
-        Inicio.setVisible(true);
+        Inicio.setVisible(false);
         Inicio.add(sair);
         Inicio.add(textos.textos(" Bem vindo __________", 0, 0, 410, 50, 25, Color.white, corVerde));
         Inicio.add(textos.textos(" Saldo:", 0, 50, 400, 50, 25, Color.black, corAmarelo));
