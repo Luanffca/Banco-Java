@@ -9,23 +9,31 @@ public class Cliente {
 	List<Cliente> clienteCC = new ArrayList<>();
 
 	private String nome;
-	private String rg;
+	private String usuario;
+	private String dataNascimento;
 	private String cpf;
+	private String rg;
 	private String endereco;
+	private String cep;
 	private String email;
+	private String celular;
 	private String senha;
 
-	Cliente(String nome, String rg, String cpf, String endereco, String email, String senha){
+	Cliente(String nome, String usuario, String dataNascimento, String cpf, String rg, String endereco, String cep, String email, String celular, String senha){
 		this.nome = nome;
-		this.rg = rg;
+		this.usuario = usuario;
+		this.dataNascimento = dataNascimento;
 		if(isCPF(cpf) == true){
 			this.cpf = imprimeCPF(cpf);
 		}
 		else{
 			System.out.println("Erro, CPF invalido !!!\n");
 		}
+		this.rg = rg;
 		this.endereco = endereco;
+		this.cep = cep;
 		this.email = email;
+		this.celular = celular;
 		this.senha = senha;
 	}
 
@@ -35,6 +43,20 @@ public class Cliente {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getUsuario(){
+		return this.usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getRG(){
@@ -66,12 +88,26 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 	public String getEmail(){
 		return this.email;
 	}
 
 	public void setEmail(String email){
 		this.email = email;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	public String getSenha(){

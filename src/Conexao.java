@@ -24,15 +24,26 @@ public class Conexao {
 		}
 	}
 	
-	public int Cadastra(String dados) {
+	public void Cadastra(String nome, String usuario, String dataNascimento, String cpf, String rg, String endereco, String cep, String email, String celular, String senha) {
 		try {
-			Statement stm = con.createStatement();
-			int res = stm.executeUpdate(dados);
+			String sql = "INSERT INTO Cliente(nome, usuario, datanascimento, cpf, rg, endereco, cep, email, celular, senha) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, nome);
+			statement.setString(2, usuario);
+			statement.setString(3, dataNascimento);
+			statement.setString(4, cpf);
+			statement.setString(5, rg);
+			statement.setString(6, endereco);
+			statement.setString(7, cep);
+			statement.setString(8, email);
+			statement.setString(9, celular);
+			statement.setString(10, senha);
+			statement.execute();
 			con.close();
-			return res;
+
 		} catch (Exception e){
 			e.printStackTrace();
-			return 0;
+
 		}
 	}
 	
