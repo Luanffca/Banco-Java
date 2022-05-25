@@ -5,10 +5,13 @@ import javax.swing.plaf.ProgressBarUI;
 import java.awt.*;
 
 import java.awt.event.ActionEvent;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class App {
-    public static void main(String[] args) {
+
+	public static void main(String[] args) {
+		Conexao con = new Conexao();
         Color corVerde = new Color(34,92,100);
         //Color corVerde = new Color(10,150,130);
         Color corAzul = new Color(34,92,150);
@@ -27,14 +30,21 @@ public class App {
         JButton registrar = botoes.botao("Cadastrar", corAmarelo, Color.black, 100, 610, 300, 40, 30);
         JButton finalizar = botoes.botao("Finalizar", corVerde, Color.white, 100, 500, 300, 40, 30);
         JButton voltar = botoes.botao("<", corVerde, Color.white, 0, 0, 50, 50, 30, 0, 0, 0, 2, Color.white);
-        JButton sair = botoes.botao("Sair >", corVerde, Color.white, 410, 0, 100, 50, 25, 0, 2, 0, 0, Color.white);
+        JButton sair = botoes.botao("Sair >", corAzul, Color.white, 410, 0, 100, 50, 25, 0, 2, 5, 0, Color.white);
+        JButton depositar = botoes.botao("Depositar", corVerde, Color.white, 40, 140, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
+        JButton sacar = botoes.botao("Sacar", corVerde, Color.white, 265, 140, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
+        JButton extrato = botoes.botao("Extrato", corVerde, Color.white, 40, 310, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
+        JButton transferir = botoes.botao("Transferir", corVerde, Color.white, 265, 310, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
+        JButton pix = botoes.botao("Pix", corVerde, Color.white, 40, 480, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
+        JButton minhaConta = botoes.botao("Conta", corVerde, Color.white, 265, 480, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
         JLabel erroNome = textos.textosInvisiveis("*Nome invalido*", 250, 180, 300, 30, 15, Color.red);
         JLabel erroEndereco = textos.textosInvisiveis("*Endereço invalido*", 250, 250, 300, 30, 15, Color.red);
         JLabel erroCPF = textos.textosInvisiveis("*CPF invalido*", 250, 320, 300, 30, 15, Color.red);
         JLabel erroRG = textos.textosInvisiveis("*RG invalido*", 250, 390, 300, 30, 15, Color.red);
         JLabel erroEmail = textos.textosInvisiveis("*Email invalido*", 250, 460, 300, 30, 15, Color.red);
         JLabel erroSenha = textos.textosInvisiveis("*Senha invalida*", 250, 530, 300, 30, 15, Color.red);
-        JLabel showSaldo = textos.textos(" ", 400, 50, 110, 50, 25, Color.black, corAmarelo);
+        JLabel bemVindo = textos.textos(" Bem vindo __________", 0, 0, 410, 50, 25, Color.white, corAzul, 0, 0, 0, 0, Color.white);
+        JLabel showSaldo = textos.textos(" ", 400, 50, 110, 50, 25, Color.white, corAzul);
         JPanel Entrar = new JPanel();
         JPanel Cadastrar = new JPanel();
         JPanel tpConta = new JPanel();
@@ -176,14 +186,20 @@ public class App {
         
 
         
-        Inicio.setBackground(Color.white);
+        Inicio.setBackground(corVerde);
         Inicio.setLayout(null);
         
         Inicio.setVisible(false);
         Inicio.add(sair);
-        Inicio.add(textos.textos(" Bem vindo __________", 0, 0, 410, 50, 25, Color.white, corVerde));
-        Inicio.add(textos.textos(" Saldo:", 0, 50, 400, 50, 25, Color.black, corAmarelo));
+        Inicio.add(bemVindo);
+        Inicio.add(textos.textos(" Saldo:", 0, 50, 400, 50, 25, Color.white, corAzul, 0, 0, 5, 0, Color.white));
         Inicio.add(showSaldo);
+        Inicio.add(depositar);
+        Inicio.add(sacar);
+        Inicio.add(extrato);
+        Inicio.add(transferir);
+        Inicio.add(pix);
+        Inicio.add(minhaConta);
         JProgressBar barra = new JProgressBar(0, 100);
 
         barra.setBounds(200, 200, 300, 30);
@@ -299,7 +315,28 @@ public class App {
             }
         });
 
-        
+        logar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent e){
+            	String loginUsuario = usuario.getText();
+            	String loginSenha = new String(senha.getPassword());
+            	System.out.println(loginUsuario + "-" + loginSenha);
+
+            	try {
+            		ResultSet rs = con.BuscaUsuario(loginUsuario);
+            		if(rs.next()) {
+            			String bancoSenha = rs.getString("senha");
+            			System.out.println(bancoSenha);
+            			if(bancoSenha.equals(loginSenha) ) {
+            				Inicio.setVisible(true);
+            				Entrar.setVisible(false);
+            			}else System.out.println("senha incorreta");
+            		}
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+            }
+        });
         finalizar.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(tituloCorrente.isSelected() || tituloPoupanca.isSelected()){
@@ -340,5 +377,5 @@ public class App {
         Pane.add(Inicio);
     }
 
-    
+
 }

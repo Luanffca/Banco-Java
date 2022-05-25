@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class campoTxt {
-    public JTextField campo(int X, int Y, int W, int H, int F, Color corFundo, Color corTexto, Color corBorda){
+    public JTextField campo(int X, int Y, int W, int H, int F, Color corFundo, Color corTexto){
         JTextField cmp = new JTextField();
         cmp.setBounds(X, Y, W, H);
         cmp.setFont(new Font("Arial", Font.PLAIN, F));
