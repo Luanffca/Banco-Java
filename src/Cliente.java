@@ -8,6 +8,7 @@ public class Cliente {
 	Scanner sc = new Scanner(System.in);
 	List<Cliente> clienteCC = new ArrayList<>();
 
+	private int id;
 	private String nome;
 	private String usuario;
 	private String dataNascimento;
@@ -19,16 +20,13 @@ public class Cliente {
 	private String celular;
 	private String senha;
 
-	Cliente(String nome, String usuario, String dataNascimento, String cpf, String rg, String endereco, String cep, String email, String celular, String senha){
+	Cliente(){}
+	Cliente(int id, String nome, String usuario, String dataNascimento, String cpf, String rg, String endereco, String cep, String email, String celular, String senha){
+		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
 		this.dataNascimento = dataNascimento;
-		if(isCPF(cpf) == true){
-			this.cpf = imprimeCPF(cpf);
-		}
-		else{
-			System.out.println("Erro, CPF invalido !!!\n");
-		}
+		this.cpf = cpf;
 		this.rg = rg;
 		this.endereco = endereco;
 		this.cep = cep;
@@ -37,9 +35,17 @@ public class Cliente {
 		this.senha = senha;
 	}
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNome(){
 		return this.nome;
 	}
+
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -182,6 +188,6 @@ public class Cliente {
 	
     @Override
 	public String toString(){
-		return " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco();
+		return "ID: " + getId() + " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco();
 	}
 }

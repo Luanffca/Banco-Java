@@ -39,11 +39,23 @@ public class Conexao {
 			statement.setString(9, celular);
 			statement.setString(10, senha);
 			statement.execute();
-			con.close();
 
 		} catch (Exception e){
 			e.printStackTrace();
 
+		}
+	}
+
+	public ResultSet getUsuario(String dados){
+		try {
+			String sql = "SELECT * FROM cliente WHERE usuario = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, dados);
+			ResultSet rs = statement.executeQuery();
+			return rs;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -53,11 +65,29 @@ public class Conexao {
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, dados);
 			ResultSet rs = statement.executeQuery();
-			con.close();
 			return rs;
 		} catch (Exception e){
 			e.printStackTrace();
 			return null;
 		}
 	}
+
+	public void criaPoupanca(int id,String cpf, String email, String celular, int senha) {
+		try {
+			String sql = "INSERT INTO conta( pixnumero, pixemail, pixcpf, agencia , operacao , saldo, cheque, cliente, senha) VALUES(?, ?, ?, 701, 013, 0.0, 0.0, ?, ?)";			
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, celular);
+			statement.setString(2, email);
+			statement.setString(3, cpf);
+			statement.setInt(4, id);
+			statement.setInt(5, senha);
+			statement.execute();
+
+		} catch (Exception e){
+			e.printStackTrace();
+
+		}
+	}
+
 }
+	

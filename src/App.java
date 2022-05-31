@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class App {
-
+    static Cliente cliente = null;
 	public static void main(String[] args) {
 		Conexao con = new Conexao();
         Color corVerde = new Color(34,92,100);
@@ -33,19 +33,19 @@ public class App {
         JButton finalizar = botoes.botao("Finalizar", corVerde, Color.white, 100, 500, 300, 40, 30);
         JButton voltar = botoes.botao("<", corVerde, Color.white, 0, 0, 50, 50, 30, 0, 0, 0, 2, Color.white);
         JButton sair = botoes.botao("Sair >", corAzul, Color.white, 410, 0, 100, 50, 25, 0, 2, 5, 0, Color.white);
-        JButton depositar = botoes.botao("Depositar", corVerde, Color.white, 40, 140, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
-        JButton sacar = botoes.botao("Sacar", corVerde, Color.white, 265, 140, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
-        JButton extrato = botoes.botao("Extrato", corVerde, Color.white, 40, 310, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
-        JButton transferir = botoes.botao("Transferir", corVerde, Color.white, 265, 310, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
-        JButton pix = botoes.botao("Pix", corVerde, Color.white, 40, 480, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
-        JButton minhaConta = botoes.botao("Conta", corVerde, Color.white, 265, 480, 200, 150, 20, 1, 1, 5, 1, corAmarelo);
+        JButton depositar = botoes.botao("Depositar",  Color.white, corVerde, 0, 140, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
+        JButton sacar = botoes.botao("Sacar",  Color.white, corVerde, 265, 140, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
+        JButton extrato = botoes.botao("Extrato",  Color.white, corVerde, 0, 310, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
+        JButton transferir = botoes.botao("Transferir",  Color.white, corVerde, 265, 310, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
+        JButton pix = botoes.botao("Pix",  Color.white, corVerde, 0, 480, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
+        JButton minhaConta = botoes.botao("Conta",  Color.white, corVerde, 265, 480, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
         JLabel erroNome = textos.textosInvisiveis("*Nome invalido*", 250, 180, 300, 30, 15, Color.red);
         JLabel erroEndereco = textos.textosInvisiveis("*Endereço invalido*", 250, 250, 300, 30, 15, Color.red);
         JLabel erroCPF = textos.textosInvisiveis("*CPF invalido*", 250, 320, 300, 30, 15, Color.red);
         JLabel erroRG = textos.textosInvisiveis("*RG invalido*", 250, 390, 300, 30, 15, Color.red);
         JLabel erroEmail = textos.textosInvisiveis("*Email invalido*", 250, 460, 300, 30, 15, Color.red);
         JLabel erroSenha = textos.textosInvisiveis("*Senha invalida*", 250, 530, 300, 30, 15, Color.red);
-        JLabel bemVindo = textos.textos(" Bem vindo __________", 0, 0, 410, 50, 25, Color.white, corAzul, 0, 0, 0, 0, Color.white);
+        JLabel bemVindo = textos.textos("", 0, 0, 410, 50, 25, Color.white, corAzul, 0, 0, 0, 0, Color.white);
         JLabel showSaldo = textos.textos(" ", 400, 50, 110, 50, 25, Color.white, corAzul);
         JPanel Entrar = new JPanel();
         JPanel Cadastrar = new JPanel();
@@ -69,13 +69,14 @@ public class App {
             MaskFormatter mascaraCEP = null;
             MaskFormatter mascaraNumero = null;
             MaskFormatter mascaraData = null;
+            MaskFormatter mascaraSenha = null;
         try {
             mascaraCPF = new MaskFormatter("###.###.###-##");
             mascaraCEP = new MaskFormatter("#####-###");
             mascaraNumero = new MaskFormatter("(##) # ####-####");
             mascaraData = new MaskFormatter("##/##/####");
+            mascaraSenha = new MaskFormatter("####");
         } catch (ParseException e2) {
-            // TODO Auto-generated catch block
             e2.printStackTrace();
         }
         JTextField getNome = campos.campo(100, 210, 300, 30, 15, Color.white, Color.black, 1, 2, 2, 1, Color.black);
@@ -122,12 +123,12 @@ public class App {
 
 
         JRadioButton tituloCorrente = new JRadioButton("Conta Corrente");
-        tituloCorrente.setBounds(50, 180, 400, 30);
+        tituloCorrente.setBounds(50, 100, 400, 30);
         tituloCorrente.setFont(new Font("Arial", Font.PLAIN, 20));
         tituloCorrente.setBackground(corVerde);
         tituloCorrente.setForeground(Color.white);
         JTextArea descrCorrente = new JTextArea("Movimente seu dinheiro da forma como desejar, com direito a um cheque especial para utilizar quando quiser");
-        descrCorrente.setBounds(50, 210, 400, 100);
+        descrCorrente.setBounds(50, 130, 400, 100);
         descrCorrente.setFont(new Font("Arial", Font.PLAIN, 20));
         descrCorrente.setMargin(new java.awt.Insets(5, 5, 5, 5));
         descrCorrente.setForeground(corVerde);
@@ -135,17 +136,24 @@ public class App {
         descrCorrente.setEditable(false);
         descrCorrente.setLineWrap(true);
         JRadioButton tituloPoupanca = new JRadioButton("Conta Poupança");
-        tituloPoupanca.setBounds(50, 310, 400, 30);
+        tituloPoupanca.setBounds(50, 230, 400, 30);
         tituloPoupanca.setFont(new Font("Arial", Font.PLAIN, 20));
         tituloPoupanca.setForeground(Color.white);
         tituloPoupanca.setBackground(corVerde);
         JTextArea descrPoupanca = new JTextArea("Ideal para quem deseja guardar dinheiro, com rendimento de 6,17% ao ano");
-        descrPoupanca.setBounds(50, 340, 400, 100);
-        descrPoupanca.setMargin(new java.awt.Insets(5, 5, 5, 5));descrPoupanca.setFont(new Font("Arial", Font.PLAIN, 20));
+        descrPoupanca.setBounds(50, 260, 400, 100);
+        descrPoupanca.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        descrPoupanca.setFont(new Font("Arial", Font.PLAIN, 20));
         descrPoupanca.setForeground(corVerde);
         descrPoupanca.setBackground(corCinza);
         descrPoupanca.setEditable(false);
         descrPoupanca.setLineWrap(true);
+
+        JFormattedTextField senhaConta = new JFormattedTextField(mascaraSenha);
+        senhaConta.setBounds(200, 420, 100, 50);
+        senhaConta.setFont(new Font("Arial", Font.PLAIN, 30));
+        senhaConta.setForeground(corVerde);
+        senhaConta.setBackground(corCinza);
 
         ButtonGroup grupo = new ButtonGroup();
         grupo.add(tituloPoupanca);
@@ -157,7 +165,7 @@ public class App {
         Entrar.setBackground(Color.white);
         Entrar.setLayout(null);
         
-        Entrar.setVisible(true);
+        Entrar.setVisible(false);
         Entrar.add(textos.textosAlinhados("Entrar", 0, 110, 300, 40, 30, corAzul));
         Entrar.add(botaoRegister);
         Entrar.add(usuario);
@@ -221,18 +229,19 @@ public class App {
         tpConta.setBackground(Color.white);
         tpConta.setLayout(null);
         
-        tpConta.setVisible(false);
+        tpConta.setVisible(true);
         tpConta.add(tituloCorrente);
         tpConta.add(descrCorrente);
         tpConta.add(tituloPoupanca);
         tpConta.add(descrPoupanca);
         tpConta.add(voltar);
         tpConta.add(finalizar);
-        tpConta.add(textos.textos("Selecione o tipo de conta", 50, 0, 470, 50, 30, Color.white, corVerde));
-        
+        tpConta.add(textos.textos(" Selecione o tipo de conta", 50, 0, 470, 50, 30, Color.white, corVerde));
+        tpConta.add(textos.textosAlinhados("Defina uma senha de 4 digitos para a conta", 0, 370, 520, 50, 20, Color.white, corVerde));
+        tpConta.add(senhaConta);
 
         
-        Inicio.setBackground(corVerde);
+        Inicio.setBackground(Color.white);
         Inicio.setLayout(null);
         
         Inicio.setVisible(false);
@@ -374,7 +383,17 @@ public class App {
             			System.out.println(bancoSenha);
             			if(bancoSenha.equals(loginSenha) ) {
                             System.out.println("Login realizado com sucesso");
+                            ResultSet rsCliente = con.getUsuario(loginUsuario);
+                            try {
+                                cliente = new Cliente(rsCliente.getInt("id"), rsCliente.getString("nome"), rsCliente.getString("usuario"), rsCliente.getString("datanascimento"), rsCliente.getString("cpf"), rsCliente.getString("rg"), rsCliente.getString("endereco"), rsCliente.getString("cep"), rsCliente.getString("email"), rsCliente.getString("celular"), rsCliente.getString("senha"));
+                                //con.criaPoupanca(rsCliente.getString("id"), cliente.getCPF(), cliente.getEmail(), cliente.getCelular(), senha);
+                                bemVindo.setText("Bem vindo " + cliente.getNome());
+                            } catch (Exception eb) {
+                                //TODO: handle exception
+                            }
+                            
             				Inicio.setVisible(true);
+                            
             				Entrar.setVisible(false);
             			}else System.out.println("senha incorreta");
             		}
@@ -387,8 +406,8 @@ public class App {
         finalizar.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(tituloCorrente.isSelected() || tituloPoupanca.isSelected()){
-                    String newSenha = new String(senha.getPassword());
-                    Cliente cliente = new Cliente(getNome.getText(), getUsuario.getText(), getData.getText(), getCPF.getText(), getRG.getText(), getEndereco.getText(), getCEP.getText(), getEmail.getText(), getCelular.getText(), newSenha);
+                    String newSenha = new String(getSenha.getPassword());
+                    
                     /*System.out.println(getNome.getText());
                     System.out.println(getUsuario.getText());
                     System.out.println(getData.getText());
@@ -399,16 +418,32 @@ public class App {
                     System.out.println(getEmail.getText());
                     System.out.println(getCelular.getText());
                     System.out.println(newSenha);*/
+                    System.out.println(newSenha);
                     con.Cadastra(getNome.getText(), getUsuario.getText(), getData.getText(), getCPF.getText(), getRG.getText(), getEndereco.getText(), getCEP.getText(), getEmail.getText(), getCelular.getText(), newSenha);
+                    
+                    try {
+                        System.out.println("entrou");
+                        ResultSet rsCliente = con.getUsuario(getUsuario.getText());
+                        while (rsCliente.next()) {
+                            cliente = new Cliente(rsCliente.getInt("id"), rsCliente.getString("nome"), rsCliente.getString("usuario"), rsCliente.getString("datanascimento"), rsCliente.getString("cpf"), rsCliente.getString("rg"), rsCliente.getString("endereco"), rsCliente.getString("cep"), rsCliente.getString("email"), rsCliente.getString("celular"), rsCliente.getString("senha"));
+                        }
+                        bemVindo.setText("Bem Vindo " + cliente.getNome());
+                        cliente.toString();
+                        if(tituloCorrente.isSelected()){
+                        }else{
+                            try {
+                                con.criaPoupanca(cliente.getId(), cliente.getCPF(), cliente.getEmail(), cliente.getCelular(), 9876);
+                            } catch (Exception el) {
+                                el.printStackTrace();
+                            }
+                        } 
+                        tpConta.setVisible(false);
+                        Inicio.setVisible(true);
 
-                    if(tituloCorrente.isSelected()){
-                        Corrente cc = cliente.criaCc();
-                    }else{
-                        Poupanca cp = cliente.criaCp();
-                    } 
+                    } catch (Exception es) {
+                        es.printStackTrace();
+                    }
 
-                    tpConta.setVisible(false);
-                    Inicio.setVisible(true);
                 }else System.out.println("Selecione");
             }
         });
