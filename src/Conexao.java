@@ -58,6 +58,19 @@ public class Conexao {
 			return null;
 		}
 	}
+
+	public ResultSet getConta(int dados){
+		try {
+			String sql = "SELECT * FROM conta WHERE cliente = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, dados);
+			ResultSet rs = statement.executeQuery();
+			return rs;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	public ResultSet BuscaUsuario(String dados) {
 		try {
@@ -88,6 +101,20 @@ public class Conexao {
 
 		}
 	}
+
+	public void DepositarPoupanca(double saldo, int id) {
+		try {
+			String sql = "UPDATE CONTA SET SALDO = ? WHERE CLIENTE = ?;";			
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setDouble(1, saldo);
+			statement.setInt(2, id);
+			statement.execute();
+
+		} catch (Exception e){
+			e.printStackTrace();
+
+		}
+    }
 
 }
 	

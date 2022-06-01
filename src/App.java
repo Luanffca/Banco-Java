@@ -12,6 +12,7 @@ import java.text.ParseException;
 
 public class App {
     static Cliente cliente = null;
+    static Conta conta = null;
 	public static void main(String[] args) {
 		Conexao con = new Conexao();
         Color corVerde = new Color(34,92,100);
@@ -19,7 +20,7 @@ public class App {
         Color corAzul = new Color(34,92,150);
         Color corAmarelo = new Color(239,209,50);
         //Color corAzul = new Color(30,144,200);
-        Color corCinza = new Color(250, 250, 250);
+        Color corCinza = new Color(240,240,240);
         Texto textos = new Texto();
         Botao botoes = new Botao();
         campoTxt campos = new campoTxt();
@@ -32,26 +33,41 @@ public class App {
         JButton registrar = botoes.botao("Cadastrar", corAmarelo, Color.black, 100, 610, 300, 40, 30);
         JButton finalizar = botoes.botao("Finalizar", corVerde, Color.white, 100, 500, 300, 40, 30);
         JButton voltar = botoes.botao("<", corVerde, Color.white, 0, 0, 50, 50, 30, 0, 0, 0, 2, Color.white);
-        JButton sair = botoes.botao("Sair >", corAzul, Color.white, 410, 0, 100, 50, 25, 0, 2, 5, 0, Color.white);
-        JButton depositar = botoes.botao("Depositar",  Color.white, corVerde, 0, 140, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
-        JButton sacar = botoes.botao("Sacar",  Color.white, corVerde, 265, 140, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
-        JButton extrato = botoes.botao("Extrato",  Color.white, corVerde, 0, 310, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
-        JButton transferir = botoes.botao("Transferir",  Color.white, corVerde, 265, 310, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
-        JButton pix = botoes.botao("Pix",  Color.white, corVerde, 0, 480, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
-        JButton minhaConta = botoes.botao("Conta",  Color.white, corVerde, 265, 480, 240, 150, 50, 1, 1, 5, 1, corAmarelo);
+        JButton voltarDepositar = botoes.botao("<", corAmarelo, corVerde, 0, 0, 50, 50, 30, 0, 0, 0, 2, Color.white);
+        JButton voltarSacar = botoes.botao("<", corVerde, Color.white, 0, 0, 50, 50, 30, 0, 0, 0, 2, Color.white);
+        JButton Prosseguir = botoes.botao("Prosseguir", corAmarelo, corVerde, 100, 500, 300, 40, 30);
+        JButton botaoDepositar = botoes.botao("Depositar", corAmarelo, corVerde, 100, 500, 300, 40, 30);
+        
+        JButton sair = botoes.botao("Sair", corAmarelo, corVerde, 410, 0, 100, 50, 25, 0, 0, 0, 0, Color.white);
+
+        JButton depositar = botoes.botao("Depositar",  Color.white, corVerde, 50, 140, 350, 50, 40, 1, 1, 5, 1, corVerde);
+        JButton sacar = botoes.botao("Sacar",  Color.white, corVerde, 50, 210, 350, 50, 40, 1, 1, 5, 1, corVerde);
+        JButton extrato = botoes.botao("Extrato",  Color.white, corVerde, 50, 280, 350, 50, 40, 1, 1, 5, 1, corVerde);
+        JButton transferir = botoes.botao("Transferir",  Color.white, corVerde, 50, 350, 350, 50, 40, 1, 1, 5, 1, corVerde);
+        JButton pix = botoes.botao("Pix",  Color.white, corVerde, 50, 420, 350, 50, 40, 1, 1, 5, 1, corVerde);
+        JButton minhaConta = botoes.botao("Conta",  Color.white, corVerde, 50, 490, 350, 50, 40, 1, 1, 5, 1, corVerde);
+        JButton iconDepositar = botoes.botao(corVerde, 0, 140, 50, 50, 50, 1, 1, 5, 1, corVerde);
+        JButton iconSacar = botoes.botao(corVerde, 0, 210, 50, 50, 50, 1, 1, 5, 1, corVerde);
+        JButton iconExtrato = botoes.botao(corVerde, 0, 280, 50, 50, 50, 1, 1, 5, 1, corVerde);
+        JButton iconTransferir = botoes.botao(corVerde, 0, 350, 50, 50, 50, 1, 1, 5, 1, corVerde);
+        JButton iconPix = botoes.botao(corVerde, 0, 420, 50, 50, 50, 1, 1, 5, 1, corVerde);
+        JButton iconMinhaConta = botoes.botao(corVerde, 0, 490, 50, 50, 50, 1, 1, 5, 1, corVerde);
+        
         JLabel erroNome = textos.textosInvisiveis("*Nome invalido*", 250, 180, 300, 30, 15, Color.red);
         JLabel erroEndereco = textos.textosInvisiveis("*Endereço invalido*", 250, 250, 300, 30, 15, Color.red);
         JLabel erroCPF = textos.textosInvisiveis("*CPF invalido*", 250, 320, 300, 30, 15, Color.red);
         JLabel erroRG = textos.textosInvisiveis("*RG invalido*", 250, 390, 300, 30, 15, Color.red);
         JLabel erroEmail = textos.textosInvisiveis("*Email invalido*", 250, 460, 300, 30, 15, Color.red);
         JLabel erroSenha = textos.textosInvisiveis("*Senha invalida*", 250, 530, 300, 30, 15, Color.red);
-        JLabel bemVindo = textos.textos("", 0, 0, 410, 50, 25, Color.white, corAzul, 0, 0, 0, 0, Color.white);
-        JLabel showSaldo = textos.textos(" ", 400, 50, 110, 50, 25, Color.white, corAzul);
+        JLabel bemVindo = textos.textos(" Bem Vindo Francisco Alisson", 0, 0, 410, 50, 25, corAmarelo, corVerde, 0, 0, 3, 0, corAmarelo);
+        JLabel showSaldo = textos.textos("R$ 3.50", 400, 50, 110, 50, 25, corVerde, Color.white, 0, 0, 3, 10, corAmarelo);
         JPanel Entrar = new JPanel();
         JPanel Cadastrar = new JPanel();
         JPanel tpConta = new JPanel();
         JPanel Inicio = new JPanel();
         JPanel Carregamento = new JPanel();
+        JPanel panelVerificaSenha = new JPanel();
+        JPanel panelDepositar = new JPanel();
 
         
 
@@ -70,12 +86,15 @@ public class App {
             MaskFormatter mascaraNumero = null;
             MaskFormatter mascaraData = null;
             MaskFormatter mascaraSenha = null;
+            MaskFormatter mascaraValor = null;
+
         try {
             mascaraCPF = new MaskFormatter("###.###.###-##");
             mascaraCEP = new MaskFormatter("#####-###");
             mascaraNumero = new MaskFormatter("(##) # ####-####");
             mascaraData = new MaskFormatter("##/##/####");
             mascaraSenha = new MaskFormatter("####");
+            mascaraValor = new MaskFormatter("###############");
         } catch (ParseException e2) {
             e2.printStackTrace();
         }
@@ -123,37 +142,54 @@ public class App {
 
 
         JRadioButton tituloCorrente = new JRadioButton("Conta Corrente");
-        tituloCorrente.setBounds(50, 100, 400, 30);
+        tituloCorrente.setBounds(20, 70, 460, 30);
         tituloCorrente.setFont(new Font("Arial", Font.PLAIN, 20));
         tituloCorrente.setBackground(corVerde);
         tituloCorrente.setForeground(Color.white);
         JTextArea descrCorrente = new JTextArea("Movimente seu dinheiro da forma como desejar, com direito a um cheque especial para utilizar quando quiser");
-        descrCorrente.setBounds(50, 130, 400, 100);
+        descrCorrente.setBounds(20, 100, 460, 100);
         descrCorrente.setFont(new Font("Arial", Font.PLAIN, 20));
-        descrCorrente.setMargin(new java.awt.Insets(5, 5, 5, 5));
         descrCorrente.setForeground(corVerde);
-        descrCorrente.setBackground(corCinza);
+        descrCorrente.setBackground(Color.white);
         descrCorrente.setEditable(false);
         descrCorrente.setLineWrap(true);
         JRadioButton tituloPoupanca = new JRadioButton("Conta Poupança");
-        tituloPoupanca.setBounds(50, 230, 400, 30);
+        tituloPoupanca.setBounds(20, 220, 460, 30);
         tituloPoupanca.setFont(new Font("Arial", Font.PLAIN, 20));
         tituloPoupanca.setForeground(Color.white);
         tituloPoupanca.setBackground(corVerde);
         JTextArea descrPoupanca = new JTextArea("Ideal para quem deseja guardar dinheiro, com rendimento de 6,17% ao ano");
-        descrPoupanca.setBounds(50, 260, 400, 100);
-        descrPoupanca.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        descrPoupanca.setBounds(20, 250, 460, 100);
         descrPoupanca.setFont(new Font("Arial", Font.PLAIN, 20));
         descrPoupanca.setForeground(corVerde);
-        descrPoupanca.setBackground(corCinza);
+        descrPoupanca.setBackground(Color.white);
         descrPoupanca.setEditable(false);
         descrPoupanca.setLineWrap(true);
 
         JFormattedTextField senhaConta = new JFormattedTextField(mascaraSenha);
-        senhaConta.setBounds(200, 420, 100, 50);
+        senhaConta.setBounds(0, 420, 520, 50);
         senhaConta.setFont(new Font("Arial", Font.PLAIN, 30));
+        senhaConta.setHorizontalAlignment(SwingConstants.CENTER);
         senhaConta.setForeground(corVerde);
-        senhaConta.setBackground(corCinza);
+        senhaConta.setBackground(Color.WHITE);
+        senhaConta.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+
+        JFormattedTextField verificaSenha = new JFormattedTextField(mascaraSenha);
+        verificaSenha.setBounds(200, 150, 100, 50);
+        verificaSenha.setFont(new Font("Arial", Font.PLAIN, 30));
+        verificaSenha.setHorizontalAlignment(SwingConstants.CENTER);
+        verificaSenha.setForeground(Color.white);
+        verificaSenha.setBackground(corAzul);
+        verificaSenha.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.white));
+        
+        JFormattedTextField getValor = new JFormattedTextField(mascaraValor);
+        getValor.setBounds(20, 150, 460, 50);
+        getValor.setFont(new Font("Arial", Font.PLAIN, 30));
+        getValor.setHorizontalAlignment(SwingConstants.CENTER);
+        getValor.setForeground(Color.white);
+        getValor.setBackground(corVerde);
+        getValor.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.white));
+
 
         ButtonGroup grupo = new ButtonGroup();
         grupo.add(tituloPoupanca);
@@ -229,7 +265,7 @@ public class App {
         tpConta.setBackground(Color.white);
         tpConta.setLayout(null);
         
-        tpConta.setVisible(true);
+        tpConta.setVisible(false);
         tpConta.add(tituloCorrente);
         tpConta.add(descrCorrente);
         tpConta.add(tituloPoupanca);
@@ -243,11 +279,10 @@ public class App {
         
         Inicio.setBackground(Color.white);
         Inicio.setLayout(null);
-        
-        Inicio.setVisible(false);
+        Inicio.setVisible(true);
         Inicio.add(sair);
         Inicio.add(bemVindo);
-        Inicio.add(textos.textos(" Saldo:", 0, 50, 400, 50, 25, Color.white, corAzul, 0, 0, 5, 0, Color.white));
+        Inicio.add(textos.textos(" Saldo:", 0, 50, 400, 50, 25, corVerde, Color.white, 0, 0, 3, 0, corVerde));
         Inicio.add(showSaldo);
         Inicio.add(depositar);
         Inicio.add(sacar);
@@ -255,6 +290,12 @@ public class App {
         Inicio.add(transferir);
         Inicio.add(pix);
         Inicio.add(minhaConta);
+        Inicio.add(iconDepositar);
+        Inicio.add(iconSacar);
+        Inicio.add(iconExtrato);
+        Inicio.add(iconTransferir);
+        Inicio.add(iconPix);
+        Inicio.add(iconMinhaConta);
         JProgressBar barra = new JProgressBar(0, 100);
 
         barra.setBounds(200, 200, 300, 30);
@@ -264,6 +305,22 @@ public class App {
         
         Carregamento.setVisible(false);
         Carregamento.add(barra);
+
+        panelVerificaSenha.setBackground(corAzul);
+        panelVerificaSenha.setLayout(null);
+        panelVerificaSenha.setVisible(false);
+        panelVerificaSenha.add(textos.textosAlinhados(" Digite sua senha de 4 digitos ", 0, 100, 520, 50, 25, Color.white));
+        panelVerificaSenha.add(verificaSenha);
+        panelVerificaSenha.add(botaoDepositar);
+
+        panelDepositar.setBackground(corVerde);
+        panelDepositar.setLayout(null);
+        panelDepositar.setVisible(false);
+        panelDepositar.add(textos.textosAlinhados(" Digite o valor que deseja depositar ", 0, 100, 520, 50, 25, Color.white));
+        panelDepositar.add(textos.textos(" Depositar ", 50, 0, 520, 50, 25, Color.white), corAmarelo);
+        panelDepositar.add(getValor);
+        panelDepositar.add(voltarDepositar);
+        panelDepositar.add(Prosseguir);
 
         /*Timer tempo = new Timer(500,new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -335,6 +392,13 @@ public class App {
             }
         });
 
+        sair.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                Inicio.setVisible(false);
+                Entrar.setVisible(true);
+            }
+        });
+
         registrar.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(getNome.getText().isEmpty()){
@@ -370,6 +434,33 @@ public class App {
                 Cadastrar.setVisible(true);
             }
         });
+        voltarDepositar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                panelDepositar.setVisible(false);
+                Inicio.setVisible(true);
+            }
+        });
+
+        depositar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                Inicio.setVisible(false);
+                panelDepositar.setVisible(true);
+            }
+        });
+        botaoDepositar.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if(cliente.getSenha() == verificaSenha.getText()){
+                    con.DepositarPoupanca(Double.parseDouble( getValor.getText()) + conta.getSaldo(), cliente.getId());
+                }
+            }
+        });
+
+        Prosseguir.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                panelDepositar.setVisible(false);
+                panelVerificaSenha.setVisible(true);
+            }
+        });
 
         logar.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -385,9 +476,10 @@ public class App {
                             System.out.println("Login realizado com sucesso");
                             ResultSet rsCliente = con.getUsuario(loginUsuario);
                             try {
-                                cliente = new Cliente(rsCliente.getInt("id"), rsCliente.getString("nome"), rsCliente.getString("usuario"), rsCliente.getString("datanascimento"), rsCliente.getString("cpf"), rsCliente.getString("rg"), rsCliente.getString("endereco"), rsCliente.getString("cep"), rsCliente.getString("email"), rsCliente.getString("celular"), rsCliente.getString("senha"));
-                                //con.criaPoupanca(rsCliente.getString("id"), cliente.getCPF(), cliente.getEmail(), cliente.getCelular(), senha);
-                                bemVindo.setText("Bem vindo " + cliente.getNome());
+                                while (rsCliente.next()) {
+                                    cliente = new Cliente(rsCliente.getInt("id"), rsCliente.getString("nome"), rsCliente.getString("usuario"), rsCliente.getString("datanascimento"), rsCliente.getString("cpf"), rsCliente.getString("rg"), rsCliente.getString("endereco"), rsCliente.getString("cep"), rsCliente.getString("email"), rsCliente.getString("celular"), rsCliente.getString("senha"));
+                                }
+                                bemVindo.setText(" Bem vindo " + cliente.getNome());
                             } catch (Exception eb) {
                                 //TODO: handle exception
                             }
@@ -432,7 +524,7 @@ public class App {
                         if(tituloCorrente.isSelected()){
                         }else{
                             try {
-                                con.criaPoupanca(cliente.getId(), cliente.getCPF(), cliente.getEmail(), cliente.getCelular(), 9876);
+                                con.criaPoupanca(cliente.getId(), cliente.getCPF(), cliente.getEmail(), cliente.getCelular(), Integer.parseInt(senhaConta.getText()));
                             } catch (Exception el) {
                                 el.printStackTrace();
                             }
@@ -457,11 +549,14 @@ public class App {
         janela.setVisible(true);
         janela.setLocationRelativeTo(null);
         janela.setResizable(false);
+
         Entrar.setSize(janela.getSize());
         Cadastrar.setSize(janela.getSize());
         tpConta.setSize(janela.getSize());
         Inicio.setSize(janela.getSize());
         Carregamento.setSize(janela.getSize());
+        panelVerificaSenha.setSize(janela.getSize());
+        panelDepositar.setSize(janela.getSize());
 
         Container Pane = janela.getContentPane();
         Pane.add(Carregamento);
@@ -469,6 +564,8 @@ public class App {
         Pane.add(Cadastrar);
         Pane.add(tpConta);
         Pane.add(Inicio);
+        Pane.add(panelVerificaSenha);
+        Pane.add(panelDepositar);
     }
 
 
