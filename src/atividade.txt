@@ -1,0 +1,37 @@
+VERSÃO 1
+Desenvolva uma aplicação para atender os seguintes requisitos:
+
+Cadastrar contas (corrente, poupança);
+Realizar operações de saque e depósito;
+Será possível realizar saques com valores maiores que o saldo se a conta tiver a opção de cheque especial;
+a conta poupança tem o seu saldo atualizado diariamente considerando a taxa cadastrada pelo banco;
+Realizar operação de extrato (*fazer o registro de cada operação realizada de saque e depósito);
+A aplicação deverá ser baseada em uma interface gráfica;
+A aplicação deve ser persistida preferencialmente em banco de dados.
+Siga todos os pilares do paradigma orientado a objetos conhecidos até o momento;
+
+VERSÃO 2
+
+Atualize seu projeto para atender aos seguintes requisitos:
+O Banco possui os seguintes funcionários: caixas de banco, secretários, gerentes e diretor;
+O sistema deverá permitir o login de um Cliente do Banco, Gerente de Agência e Diretor;
+O Cliente poderá realizar as operações já previstas na primeira versão (saque, depósito, extrato);
+O Gerente também poderá criar contas, visualizar todas as contas da agência que faz parte e realizar operações de empréstimo a seus clientes (considerando uma taxa mensal);
+O diretor poderá ver as contas que estão associadas a cada agência;
+O diretor deverá ver o CPF do titular da conta, número da conta, saldo, gerente associado, se tem empréstimo ou não.
+O Diretor poderá cadastrar funcionários, visualizar os funcionários (todos os funcionários devem ter uma conta no banco) e conceder empréstimos aos funcionários (com uma taxa menor que a taxa dos clientes avulsos); 
+Na solução apresentada, tente fazer uso do conceito de Interfaces ou similar, caso estejam utilizando uma linguagem de programação diferente do JAVA.
+
+
+caixas de banco
+secretários
+gerentes 
+Criar contas
+visualizar todas as contas da agência que faz parte e realizar operações de empréstimo a seus clientes (considerando uma taxa mensal)
+diretor
+O diretor poderá ver as contas que estão associadas a cada agência;
+O diretor deverá ver o CPF do titular da conta, número da conta, saldo, gerente associado, se tem empréstimo ou não.
+O Diretor poderá cadastrar funcionários, visualizar os funcionários (todos os funcionários devem ter uma conta no banco) e conceder empréstimos aos funcionários (com uma taxa menor que a taxa dos clientes avulsos); 
+
+
+Criar a Classe Empretimo 

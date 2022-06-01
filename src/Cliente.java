@@ -7,37 +7,61 @@ public class Cliente {
 	Scanner sc = new Scanner(System.in);
 	List<Cliente> clienteCC = new ArrayList<>();
 
+	private int id;
 	private String nome;
-	private String rg;
-	private String cpf;
-	private String endereco;
+	private String usuario;
 	private String dataNascimento;
+	private String cpf;
+	private String rg;
+	private String endereco;
+	private String cep;
 	private String email;
-	private int senha;
-	
-	Cliente(){}
+	private String celular;
+	private String senha;
 
-	Cliente(String nome, String rg, String cpf, String endereco, String dataNascimento, String email, int senha){
+	Cliente(){}
+	Cliente(int id, String nome, String usuario, String dataNascimento, String cpf, String rg, String endereco, String cep, String email, String celular, String senha){
+		this.id = id;
 		this.nome = nome;
-		this.rg = rg;
-		if(isCPF(cpf) == true){
-			this.cpf = imprimeCPF(cpf);
-		}
-		else{
-			System.out.println("Erro, CPF invalido !!!\n");
-		}
-		this.endereco = endereco;
+		this.usuario = usuario;
 		this.dataNascimento = dataNascimento;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.endereco = endereco;
+		this.cep = cep;
 		this.email = email;
+		this.celular = celular;
 		this.senha = senha;
+	}
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome(){
 		return this.nome;
 	}
 
+
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getUsuario(){
+		return this.usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getRG(){
@@ -69,12 +93,11 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public String getDatanascimento(){
-		return this.dataNascimento;
+	public String getCep() {
+		return cep;
 	}
-
-	public void setDatanascimento(String dataNascimento){
-		this.dataNascimento = dataNascimento;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	public String getEmail(){
@@ -85,12 +108,27 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public int getSenha(){
+	public String getCelular() {
+		return celular;
+	}
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public String getSenha(){
 		return this.senha;
 	}
 
-	public void setSenha(int senha){
+	public void setSenha(String senha){
 		this.senha = senha;
+	}
+	public Poupanca criaCp(){
+		Poupanca cp = new Poupanca(013, 071);
+		return cp;
+	}
+	public Corrente criaCc(){
+		Corrente cc = new Corrente(001, 071);
+		return cc;
 	}
 
     public boolean isCPF(String CPF) {
@@ -149,6 +187,6 @@ public class Cliente {
 	
     @Override
 	public String toString(){
-		return " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco()+"\n Data Nascimento: "+ getDatanascimento();
+		return "ID: " + getId() + " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco();
 	}
 }
