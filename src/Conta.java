@@ -4,18 +4,29 @@ import java.util.List;
 
 public  class Conta{
 
+	private int numero;
+	private String pixnumero;
+	private String pixemail;
+	private String pixcpf;
 	private int agencia;
 	private int operacao;
-	private int numero;
-	protected double saldo = 0;
-	private int senha;
+	private double saldo;
+	protected double cheque;
+	private int cliente;
+	private String senha;
 
 	List<Historico> historicos = new ArrayList<>();
 
-	Conta(int agencia, int operacao, int numero, int senha){
-		this.agencia = agencia;
+	Conta(int numero, String pixnumero, String pixemail, String pixcpf, int agencia, int operacao, Double saldo, Double cheque, int cliente, String senha){
 		this.numero = numero;
+		this.pixnumero = pixnumero;
+		this.pixemail = pixemail;
+		this.pixcpf = pixcpf;
+		this.agencia = agencia;
 		this.operacao = operacao;
+		this.saldo = saldo;
+		this.cheque = cheque;
+		this.cliente = cliente;
 		this.senha = senha;
 	}
 	
@@ -49,6 +60,9 @@ public  class Conta{
 
 	public void setOperacao(int operacao) {
 		this.operacao = operacao;
+	}
+	public String getSenha() {
+		return senha;
 	}
 
 	public void depositar(double valor) {

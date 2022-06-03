@@ -85,15 +85,16 @@ public class Conexao {
 		}
 	}
 
-	public void criaPoupanca(int id,String cpf, String email, String celular, int senha) {
+	public void criaConta(int id,String cpf, String email, String celular, String operacao, String senha) {
 		try {
-			String sql = "INSERT INTO conta( pixnumero, pixemail, pixcpf, agencia , operacao , saldo, cheque, cliente, senha) VALUES(?, ?, ?, 701, 013, 0.0, 0.0, ?, ?)";			
+			String sql = "INSERT INTO conta( pixnumero, pixemail, pixcpf, agencia , operacao , saldo, cheque, cliente, senha) VALUES(?, ?, ?, 701, ?, 0.0, 0.0, ?, ?)";			
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, celular);
 			statement.setString(2, email);
 			statement.setString(3, cpf);
-			statement.setInt(4, id);
-			statement.setInt(5, senha);
+			statement.setString(4, operacao);
+			statement.setInt(5, id);
+			statement.setString(6, senha);
 			statement.execute();
 
 		} catch (Exception e){

@@ -22,7 +22,7 @@ create table Conta(
 	saldo numeric,
 	cheque numeric,
 	cliente bigint unique,
-	senha bigint unique,
+	senha char(4) unique,
 	primary key(numero),
 	foreign key(cliente) references Cliente(id),
 	foreign key(pixnumero) references Cliente(celular),
