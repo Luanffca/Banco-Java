@@ -57,7 +57,6 @@ public class Texto {
     public JLabel textos(String texto, int X, int Y, int W, int H, int F, Color corTexto){
         JLabel txt = new JLabel(texto);
         txt.setBounds(X, Y, W, H);
-        
         txt.setFont(new Font("Arial", Font.PLAIN, F));
         txt.setForeground(corTexto);
         return txt;

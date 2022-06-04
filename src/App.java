@@ -15,11 +15,14 @@ public class App {
     static Conta conta = null;
 	public static void main(String[] args) {
 		Conexao con = new Conexao();
-        Color corVerde = new Color(34,92,100);
+        //Color corVerde = new Color(34,92,100);
         //Color corVerde = new Color(10,150,130);
         Color corAzul = new Color(34,92,150);
-        Color corAmarelo = new Color(239,209,50);
+        //Color corAmarelo = new Color(239,209,50);
         //Color corAzul = new Color(30,144,200);
+        Color corVerde = new Color(67,87,114);
+        Color corAmarelo = new Color(254,170,58);
+        //Color corAzul = new Color(31,85,181);
         Color corCinza = new Color(240,240,240);
         Texto textos = new Texto();
         Botao botoes = new Botao();
@@ -31,23 +34,6 @@ public class App {
         JButton Prosseguir = botoes.botao("Prosseguir", corAmarelo, corVerde, 100, 500, 300, 40, 30);
         JButton botaoDepositar = botoes.botao("Depositar", corAmarelo, corVerde, 100, 500, 300, 40, 30);
         
-        JButton sair = botoes.botao("Sair", corAmarelo, corVerde, 410, 0, 100, 50, 25, 0, 0, 0, 0, Color.white);
-
-        JButton depositar = botoes.botao("Depositar",  Color.white, corVerde, 50, 140, 350, 50, 40, 1, 1, 5, 1, corVerde);
-        JButton sacar = botoes.botao("Sacar",  Color.white, corVerde, 50, 210, 350, 50, 40, 1, 1, 5, 1, corVerde);
-        JButton extrato = botoes.botao("Extrato",  Color.white, corVerde, 50, 280, 350, 50, 40, 1, 1, 5, 1, corVerde);
-        JButton transferir = botoes.botao("Transferir",  Color.white, corVerde, 50, 350, 350, 50, 40, 1, 1, 5, 1, corVerde);
-        JButton pix = botoes.botao("Pix",  Color.white, corVerde, 50, 420, 350, 50, 40, 1, 1, 5, 1, corVerde);
-        JButton minhaConta = botoes.botao("Conta",  Color.white, corVerde, 50, 490, 350, 50, 40, 1, 1, 5, 1, corVerde);
-        JButton iconDepositar = botoes.botao(corVerde, 0, 140, 50, 50, 50, 1, 1, 5, 1, corVerde);
-        JButton iconSacar = botoes.botao(corVerde, 0, 210, 50, 50, 50, 1, 1, 5, 1, corVerde);
-        JButton iconExtrato = botoes.botao(corVerde, 0, 280, 50, 50, 50, 1, 1, 5, 1, corVerde);
-        JButton iconTransferir = botoes.botao(corVerde, 0, 350, 50, 50, 50, 1, 1, 5, 1, corVerde);
-        JButton iconPix = botoes.botao(corVerde, 0, 420, 50, 50, 50, 1, 1, 5, 1, corVerde);
-        JButton iconMinhaConta = botoes.botao(corVerde, 0, 490, 50, 50, 50, 1, 1, 5, 1, corVerde);
-        
-        JLabel bemVindo = textos.textos(" Bem Vindo Francisco Alisson", 0, 0, 410, 50, 25, corAmarelo, corVerde, 0, 0, 3, 0, corAmarelo);
-        JLabel showSaldo = textos.textos("R$ 3.50", 400, 50, 110, 50, 25, corVerde, Color.white, 0, 0, 3, 10, corAmarelo);
         JPanel Entrar = new JPanel();
         JPanel Cadastrar = new JPanel();
         JPanel tpConta = new JPanel();
@@ -72,7 +58,7 @@ public class App {
 
         Entrar.setBackground(Color.white);
         Entrar.setLayout(null);
-        Entrar.setVisible(true);
+        Entrar.setVisible(false);
         Entrar.add(textos.textosAlinhados("Entrar", 0, 110, 300, 40, 30, corAzul));
         Entrar.add(textos.textos("Usuário", 100, 200, 300, 30, 20, corAzul));
         Entrar.add(textos.textos("Senha", 100, 270, 300, 30, 20, corAzul));
@@ -236,13 +222,35 @@ public class App {
         tpConta.add(senhaConta);
 
         // TELA INICIAL
-        Inicio.setBackground(Color.white);
+        JButton sair = botoes.botao(" Sair", corAmarelo, Color.black, 410, 0, 100, 50, 25, 0, 2, 0, 0, Color.white);
+        JButton depositar = botoes.botaoAlinhado(" Depositar",  corVerde, Color.white, 50, 210, 350, 50, 40, 1, 1, 5, 1, corAmarelo);
+        JButton sacar = botoes.botaoAlinhado(" Sacar",  corVerde, Color.white, 50, 280, 350, 50, 40, 1, 1, 5, 1, corAmarelo);
+        JButton extrato = botoes.botaoAlinhado(" Extrato",  corVerde, Color.white, 50, 350, 350, 50, 40, 1, 1, 5, 1, corAmarelo);
+        JButton transferir = botoes.botaoAlinhado(" Transferir",  corVerde, Color.white, 50, 420, 350, 50, 40, 1, 1, 5, 1, corAmarelo);
+        JButton pix = botoes.botaoAlinhado(" Pix",  corVerde, Color.white, 50, 490, 350, 50, 40, 1, 1, 5, 1, corAmarelo);
+        JButton minhaConta = botoes.botaoAlinhado(" Conta",  corVerde, Color.white, 50, 560, 350, 50, 40, 1, 1, 5, 1, corAmarelo);
+        JButton iconDepositar = botoes.botao(corAmarelo, 0, 210, 50, 50, 50, 1, 1, 5, 1, corAmarelo);
+        JButton iconSacar = botoes.botao(corAmarelo, 0, 280, 50, 50, 50, 1, 1, 5, 1, corAmarelo);
+        JButton iconExtrato = botoes.botao(corAmarelo, 0, 350, 50, 50, 50, 1, 1, 5, 1, corAmarelo);
+        JButton iconTransferir = botoes.botao(corAmarelo, 0, 420, 50, 50, 50, 1, 1, 5, 1, corAmarelo);
+        JButton iconPix = botoes.botao(corAmarelo, 0, 490, 50, 50, 50, 1, 1, 5, 1, corAmarelo);
+        JButton iconMinhaConta = botoes.botao(corAmarelo, 0, 560, 50, 50, 50, 1, 1, 5, 1, corAmarelo);
+        
+        JLabel bemVindo = textos.textos(" Bem Vindo Francisco Alisson", 0, 0, 410, 50, 25, Color.white, corAzul, 0, 5, 0, 0, corAmarelo);
+        JLabel showSaldo = textos.textos(" R$ 3.50", 300, 70, 210, 50, 25, Color.black, corAmarelo, 0, 0, 0, 0, corVerde);
+        JLabel showCheque = textos.textos(" R$ 300", 400, 120, 110, 40, 20, Color.white, corAzul, 0, 0, 3, 0, Color.white);
+        
+        Inicio.setBackground(corVerde);
         Inicio.setLayout(null);
-        Inicio.setVisible(false);
+        Inicio.setVisible(true);
         Inicio.add(sair);
         Inicio.add(bemVindo);
-        Inicio.add(textos.textos(" Saldo:", 0, 50, 400, 50, 25, corVerde, Color.white, 0, 0, 3, 0, corVerde));
+        Inicio.add(textos.textos(0, 50, 520, 20, corAzul, 0, 0, 0, 0, corAmarelo));
+        Inicio.add(textos.textos(480, 160, 50, 700, Color.white, 0, 0, 0, 0, Color.white));
+        Inicio.add(textos.textos(" Saldo:", 0, 70, 300, 50, 25, Color.black, corAmarelo, 0, 0, 0, 0, corVerde));
+        Inicio.add(textos.textos(" Cheque especial:", 0, 120, 400, 40, 20, Color.white, corAzul, 0, 0, 3, 0, Color.white));
         Inicio.add(showSaldo);
+        Inicio.add(showCheque);
         Inicio.add(depositar);
         Inicio.add(sacar);
         Inicio.add(extrato);
