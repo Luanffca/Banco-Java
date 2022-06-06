@@ -29,3 +29,17 @@ create table Conta(
 	foreign key(pixemail) references Cliente(email),
 	foreign key(pixcpf) references Cliente(cpf)
 );
+
+CREATE TABLE Extrato(
+	idExtrato serial unique,
+	idTransacao int not null,
+	idConta serial,
+	datahora date,
+	transacao text,
+	valor numeric,
+	saldoCheque numeric,
+	saldoAnterior numeric,
+	saldoAtualizado numeric,
+	detalhes text,
+	foreign key(idConta) references Conta(numero)
+);

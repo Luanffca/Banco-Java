@@ -9,15 +9,15 @@ public  class Conta{
 	private String pixemail;
 	private String pixcpf;
 	private int agencia;
-	private int operacao;
+	private String operacao;
 	private double saldo;
 	protected double cheque;
 	private int cliente;
 	private String senha;
 
-	List<Historico> historicos = new ArrayList<>();
+	List<Extrato> historicos = new ArrayList<>();
 
-	Conta(int numero, String pixnumero, String pixemail, String pixcpf, int agencia, int operacao, Double saldo, Double cheque, int cliente, String senha){
+	Conta(int numero, String pixnumero, String pixemail, String pixcpf, int agencia, String operacao, Double saldo, Double cheque, int cliente, String senha){
 		this.numero = numero;
 		this.pixnumero = pixnumero;
 		this.pixemail = pixemail;
@@ -28,6 +28,14 @@ public  class Conta{
 		this.cheque = cheque;
 		this.cliente = cliente;
 		this.senha = senha;
+	}
+
+	public void setCheque(double cheque) {
+		this.cheque = cheque;
+	}
+
+	public double getCheque() {
+		return cheque;
 	}
 	
 	public double getSaldo(){
@@ -54,29 +62,30 @@ public  class Conta{
 		this.numero = numero;
 	}
 
-	public int getOperacao(){
+	public String getOperacao(){
 		return this.operacao;
 	}
 
-	public void setOperacao(int operacao) {
+	public void setOperacao(String operacao) {
 		this.operacao = operacao;
 	}
 	public String getSenha() {
 		return senha;
 	}
 
+	/*
 	public void depositar(double valor) {
 		if (valor < 0) {
 			System.out.println("** Depósito: Operação inválida");
 		} else {
 			saldo = saldo + valor;
 			System.out.println("** Depósito: Operação realizada com sucessor!");
-			Historico h = new Historico();
-			h.setOperacao("Depósito");
+			//Extrato h = new Extrato();
+			//h.setOperacao("Depósito");
 			double depositor = valor;
-			h.setDetalhes("Valor do depósito: " + depositor);
-			h.setData(Instant.now().toString());
-			historicos.add(h);
+			//h.setDetalhes("Valor do depósito: " + depositor);
+			//h.setData(Instant.now().toString());
+			//historicos.add(h);
 		}	
 	}
 
@@ -86,12 +95,12 @@ public  class Conta{
 		} else {
 			saldo = saldo - valor;
 			System.out.println("** Saque: Operação realizada com sucessor");
-			Historico h = new Historico();
-			h.setOperacao("Saque");
+			//Extrato h = new Extrato();
+			//h.setOperacao("Saque");
 			double sacar = valor;
-			h.setDetalhes("Valor do saque: " + sacar);
-			h.setData(Instant.now().toString());
-			historicos.add(h);
+			//h.setDetalhes("Valor do saque: " + sacar);
+			//h.setData(Instant.now().toString());
+			//historicos.add(h);
 		}
 		
 	}
@@ -114,7 +123,7 @@ public  class Conta{
 		System.out.println("-------------------------");
 	}
 
-	/*
+	
 	@Override
 	public String toString() {
 		return super.toString() + "\n Agencia: " + getAgencia() + " Operacao: " + getOperacao() + " Numero Conta: "+ getNumero();
