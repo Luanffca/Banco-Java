@@ -1,3 +1,4 @@
+/*
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputAdapter;
@@ -20,7 +21,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.sql.Date;
 
-public class App {
+public class Appback {
     static Cliente cliente = null;
     static Conta conta = null;
     static Extrato extrato = null;
@@ -1123,3 +1124,4 @@ public class App {
         return operacao;
     }
 }
+*/
