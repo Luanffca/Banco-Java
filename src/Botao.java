@@ -2,7 +2,6 @@ import javax.swing.JButton;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Botao{
     Color corAzul = new Color(34,92,150);

@@ -1,26 +1,20 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.MouseInputAdapter;
 import javax.swing.plaf.DimensionUIResource;
-import javax.swing.plaf.ProgressBarUI;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
-
-import org.w3c.dom.events.MouseEvent;
-
 import java.awt.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.time.Instant;
-import java.sql.Date;
+
 
 public class App {
+    static Color corAzul = new Color(34,92,150);
+    static Color corCinza = new Color(67,87,114);
+    static Color corAmarelo = new Color(254,170,58);
+    static Color corVermelho = new Color(234,100,30);
     static Cliente cliente = null;
     static Conta conta = null;
     static Extrato extrato = null;
@@ -34,6 +28,7 @@ public class App {
     static JTextField getDeposito;
     static JTextField getSaque;
     static JTextField getTransferencia;
+    static JTextField getPix;
     static JTextField getAgencia;
     static JTextField getOperacao;
     static JTextField getNumeroConta;
@@ -41,6 +36,7 @@ public class App {
     static JTextField getPixEmail;
     static JFormattedTextField getPixNumero;
     static JTextField getEmprestimo;
+    static JLabel campoInicial;
 
     static Conexao con = new Conexao();
 	public static void main(String[] args) {
@@ -51,9 +47,7 @@ public class App {
         //Color corAmarelo = new Color(239,209,50);
         //Color corAzul = new Color(30,144,200);
 
-        Color corAzul = new Color(34,92,150);
-        Color corCinza = new Color(67,87,114);
-        Color corAmarelo = new Color(254,170,58);
+        
         Texto textos = new Texto();
         Botao botoes = new Botao();
         campoTxt campos = new campoTxt();
@@ -73,9 +67,9 @@ public class App {
         JPanel panelRoll = new JPanel();
 
         // TELA ENTRAR
-        JButton registrar = botoes.botao("Cadastrar", corAmarelo, Color.black, 100, 610, 300, 40, 30);
+        JButton registrar = botoes.botao("Cadastrar", corAmarelo, Color.black, 100, 610, 310, 40, 30);
         JButton botaoRegister = botoes.botao("Cadastrar", corAmarelo, Color.black, 300, 110, 210, 40, 25);
-        JButton borderRegister = botoes.botao(corAmarelo, 485, 140, 30, 680);
+        JLabel borderRegister = textos.textos(485, 150, 30, 680, corAmarelo);
         JButton recuperar = botoes.botao("Esqueci a senha", Color.white, corAzul, 100, 340, 300, 20);
         JButton logar = botoes.botao("Entrar", corAmarelo, Color.black, 100, 370, 300, 40, 30);
         JTextField usuario = campos.campo(100, 230, 300, 30, 15, Color.white, Color.black, 1, 2, 2, 1, Color.black);
@@ -109,7 +103,7 @@ public class App {
 
         // TELA CADASTRAR
         JButton botaoLogin = botoes.botao("Entrar", corAmarelo, Color.black, 0, 110, 210, 40, 25);
-        JButton borderLogin = botoes.botao(corAmarelo, 0, 140, 20, 680);
+        JLabel borderLogin = textos.textos(0, 150, 15, 680, corAmarelo);
         
         MaskFormatter mascaraCPF = null;
         MaskFormatter mascaraCEP = null;
@@ -244,7 +238,7 @@ public class App {
         tpConta.add(senhaConta);
 
         // TELA INICIAL
-        JButton sair = botoes.botao(" Sair", corAmarelo, Color.black, 410, 0, 100, 50, 25, 0, 2, 0, 0, Color.white);
+        JButton sair = botoes.botao(" Sair", corAmarelo, Color.black, 410, 0, 110, 50, 25, 0, 3, 0, 0, Color.white);
         JButton depositar = botoes.botaoInicial(" Depositar",0, 210, Inicio, panelDepositar);
         JButton sacar = botoes.botaoInicial(" Sacar",0, 280, Inicio, panelSacar);
         JButton extrato = botoes.botaoInicial(" Extrato",0, 350, Inicio, panelExtrato);
@@ -260,9 +254,10 @@ public class App {
         JButton iconMinhaConta = botoes.botao(corAmarelo, 0, 560, 50, 50);
         */
         JLabel bemVindo = textos.textos(" Bem Vindo Francisco Alisson", 0, 0, 410, 50, 25, Color.white, corAzul, 0, 5, 0, 0, corAmarelo);
-        saldoInicial = textos.textos(" R$ 3.50", 300, 70, 210, 50, 25, Color.black, corAmarelo, 0, 0, 0, 0, corCinza);
-        chequeInicial = textos.textos(" R$ 300", 400, 120, 110, 40, 20, Color.white, corAzul, 0, 0, 3, 0, Color.white);
-        
+        saldoInicial = textos.textos(" R$ 3.50", 320, 70, 210, 50, 25, Color.black);
+        chequeInicial = textos.textos(" R$ 300", 400, 120, 110, 40, 20, Color.white);
+        JLabel labelCheque = textos.textos(" Cheque especial:", 0, 120, 400, 40, 20, Color.white);
+        campoInicial = textos.textos(0, 70, 510, 50, corAmarelo);
         Inicio.setBackground(corCinza);
         Inicio.setLayout(null);
         Inicio.setVisible(false);
@@ -270,10 +265,12 @@ public class App {
         Inicio.add(bemVindo);
         Inicio.add(textos.textos(0, 50, 520, 20, corAzul, 0, 0, 0, 0, corAmarelo));
         Inicio.add(textos.textos(480, 160, 50, 700, Color.white, 0, 0, 0, 0, Color.white));
-        Inicio.add(textos.textos(" Saldo:", 0, 70, 300, 50, 25, Color.black, corAmarelo, 0, 0, 0, 0, corCinza));
-        Inicio.add(textos.textos(" Cheque especial:", 0, 120, 400, 40, 20, Color.white, corAzul, 0, 0, 3, 0, Color.white));
-        Inicio.add(saldoInicial);
+        Inicio.add(textos.textos(" Saldo:", 0, 70, 300, 50, 25, Color.black));
+        Inicio.add(labelCheque);
         Inicio.add(chequeInicial);
+        Inicio.add(textos.textos(0, 120, 520, 40, corAzul, 0, 0, 3, 0, Color.white));
+        Inicio.add(saldoInicial);
+        Inicio.add(campoInicial);
         Inicio.add(depositar);
         Inicio.add(sacar);
         Inicio.add(extrato);
@@ -342,7 +339,7 @@ public class App {
 
         saldoSaque = textos.textos(" R$ 3.50", 330, 210, 150, 50, 25, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo);
         chequeSaque = textos.textos(" R$ 300", 340, 260, 140, 40, 20, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo);
-
+        JLabel labelChequeSaque = textos.textos(" Cheque especial:", 20, 260, 380, 40, 20, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo);
         panelSacar.setBackground(corCinza);
         panelSacar.setLayout(null);
         panelSacar.setVisible(false);
@@ -353,7 +350,7 @@ public class App {
         panelSacar.add(segueSaque);
         panelSacar.add(erroSaque);
         panelSacar.add(textos.textos(" Saldo:", 20, 210, 380, 50, 25, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo));
-        panelSacar.add(textos.textos(" Cheque especial:", 20, 260, 380, 40, 20, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo));
+        panelSacar.add(labelChequeSaque);
         panelSacar.add(textos.textosAlinhados(" Digite o valor que deseja Sacar ", 0, 100, 520, 50, 25, Color.white));
         panelSacar.add(textos.textos(" Sacar ", 50, 0, 520, 50, 25, Color.white, corAzul, 0, 0, 3, 0, Color.white));
         //TELA TRANSFERIR
@@ -361,27 +358,28 @@ public class App {
         tipoChave.addItem("CPF");
         tipoChave.addItem("Email");
         tipoChave.addItem("Numero de celular");
-        tipoChave.setBounds(300, 100, 150, 30);
-        tipoChave.setBackground(corAzul);
-        tipoChave.setForeground(Color.white);
-        tipoChave.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, Color.white));
+        tipoChave.setBounds(280, 80, 170, 30);
+        tipoChave.setFont(new Font("Arial", Font.PLAIN, 20));
+        tipoChave.setBackground(Color.white);
+        tipoChave.setForeground(corAzul);
+        tipoChave.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.white));
 
         getPixCPF = new JFormattedTextField(mascaraCPF);
-        getPixCPF.setBounds(20, 200, 200, 30);
+        getPixCPF.setBounds(20, 180, 200, 30);
         getPixCPF.setFont(new Font("Arial", Font.PLAIN, 20));
         getPixCPF.setForeground(corAzul);
         getPixCPF.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
         getPixCPF.setVisible(true);
 
         getPixNumero = new JFormattedTextField(mascaraNumero);
-        getPixNumero.setBounds(20, 200, 200, 30);
+        getPixNumero.setBounds(20, 180, 200, 30);
         getPixNumero.setFont(new Font("Arial", Font.PLAIN, 20));
         getPixNumero.setForeground(corAzul);
         getPixNumero.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
         getPixNumero.setVisible(false);
 
         getPixEmail = new JTextField();
-        getPixEmail.setBounds(20, 200, 200, 30);
+        getPixEmail.setBounds(20, 180, 200, 30);
         getPixEmail.setFont(new Font("Arial", Font.PLAIN, 20));
         getPixEmail.setForeground(corAzul);
         getPixEmail.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
@@ -411,11 +409,29 @@ public class App {
             }
         });
         
+        getPix = new JTextField();
+        getPix.setBounds(20, 270, 200, 30);
+        getPix.setFont(new Font("Arial", Font.PLAIN, 20));
+        getPix.setForeground(corAzul);
+        getPix.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
+
+        JTextArea getDescricao = new JTextArea();
+        JScrollPane desc = new JScrollPane(getDescricao);
+        desc.setBounds(260, 210, 200, 70);
+        getDescricao.setFont(new Font("Arial", Font.PLAIN, 20));
+        getDescricao.setForeground(corAzul);
+        desc.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
+        getDescricao.setLineWrap(true);
+        getDescricao.setEditable(true);
         
+        desc.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-
+        JButton EnviarPix = botoes.botao("Enviar pix", corCinza, Color.white, 100, 350, 300, 40, 30, 1, 3, 3, 1, Color.white);
+        EnviarPix.setVisible(false);
+        JLabel erroPix = textos.textosAlinhados("Enviar pix", 100, 350, 300, 40, 30, corCinza, Color.white, 1, 3, 3, 1, corCinza);
         JLabel labelPix = textos.textosAlinhados("Pix", 0, 0, 300, 40, 30, corAzul, Color.white);
         JButton botaoTransferencia = botoes.botao("Transferir", corAmarelo, Color.black, 300, 0, 210, 40, 25);
+        JLabel bordaPix = textos.textos(490, 0, 20, 500, corAmarelo);
         panelPix.setLayout(null);
         panelPix.setBackground(Color.white);
         panelPix.setBounds(0, 180, 520, 500);
@@ -425,21 +441,80 @@ public class App {
         panelPix.add(getPixCPF);
         panelPix.add(getPixEmail);
         panelPix.add(getPixNumero);
-        panelPix.add(textos.textos(" Selecione o tipo de chave", 0, 90, 480, 50, 20, Color.white, corAzul));
-        panelPix.add(textos.textos("Chave", 20, 150, 100, 50, 20, corAzul));
+        panelPix.add(getPix);
+        panelPix.add(desc);
+        panelPix.add(EnviarPix);
+        panelPix.add(erroPix);
+        panelPix.add(textos.textos(" Selecione o tipo de chave", 0, 70, 460, 50, 20, Color.white, corAzul));
+        panelPix.add(textos.textos("Chave", 20, 130, 100, 50, 20, corAzul));
+        panelPix.add(textos.textos("Descrição (Opcional)", 260, 170, 200, 50, 20, corAzul));
+        panelPix.add(textos.textos("Valor", 20, 220, 100, 50, 20, corAzul));
+        panelPix.add(bordaPix);
+
+        JButton botaoPix = botoes.botao("Pix", corAmarelo, Color.black, 0, 0, 210, 40, 25);
+        JLabel labelTransferir = textos.textosAlinhados("Transferir", 210, 0, 300, 40, 30, corAzul);
+        
+        JTextField getAgencia = new JTextField();
+        getAgencia.setBounds(40, 120, 200, 30);
+        getAgencia.setFont(new Font("Arial", Font.PLAIN, 20));
+        getAgencia.setForeground(corAzul);
+        getAgencia.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
+
+        JTextField getNConta = new JTextField();
+        getNConta.setBounds(40, 200, 200, 30);
+        getNConta.setFont(new Font("Arial", Font.PLAIN, 20));
+        getNConta.setForeground(corAzul);
+        getNConta.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
+
+        JComboBox<String> tipoConta = new JComboBox<String>();
+        tipoConta.setBounds(300, 200, 150, 30);
+        tipoConta.setFont(new Font("Arial", Font.PLAIN, 20));
+        tipoConta.setForeground(corAzul);
+        tipoConta.setBackground(Color.white);
+        tipoConta.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, corAzul));
+        tipoConta.addItem("Corrente");
+        tipoConta.addItem("Poupança");
+
+        getTransferencia = new JTextField();
+        getTransferencia.setBounds(40, 280, 200, 30);
+        getTransferencia.setFont(new Font("Arial", Font.PLAIN, 20));
+        getTransferencia.setForeground(corAzul);
+        getTransferencia.setBorder(BorderFactory.createMatteBorder(1, 3, 3, 1, corAzul));
+
+        JButton BotaoTransferir = botoes.botao("Transferir", corCinza, Color.white, 100, 350, 300, 40, 30, 1, 3, 3, 1, Color.white);
+        JLabel erroTransferir = textos.textosAlinhados("Transferir", 100, 350, 300, 40, 30, corCinza, Color.white, 1, 3, 3, 1, corCinza);
+        BotaoTransferir.setVisible(false);
+        JLabel bordaTransferencia = textos.textos(0, 0, 10, 500, corAmarelo);
+
         panelTransferencia.setLayout(null);
+        panelTransferencia.setBackground(Color.white);
+        panelTransferencia.setBounds(0, 180, 520, 500);
+        panelTransferencia.setVisible(false);
+        panelTransferencia.add(botaoPix);
+        panelTransferencia.add(getNConta);
+        panelTransferencia.add(getTransferencia);
+        panelTransferencia.add(BotaoTransferir);
+        panelTransferencia.add(tipoConta);
+        panelTransferencia.add(erroTransferir);
+        panelTransferencia.add(bordaTransferencia);
+        panelTransferencia.add(textos.textos("Agencia", 40, 70, 100, 50, 20, corAzul));
+        panelTransferencia.add(textos.textos("Conta", 40, 150, 100, 50, 20, corAzul));
+        panelTransferencia.add(textos.textos("Valor", 40, 230, 100, 50, 20, corAzul));
+        panelTransferencia.add(textos.textos("Tipo", 300, 150, 100, 50, 20, corAzul));
+        panelTransferencia.add(labelTransferir);
+        panelTransferencia.add(getAgencia);
         
         saldoTransferir = textos.textos(" R$ 3.50", 330, 70, 150, 50, 25, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo);
         chequeTransferir = textos.textos(" R$ 300", 340, 120, 140, 40, 20, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo);
-
-        panelTransferir.add(textos.textos(" Saldo:", 0, 70, 380, 50, 25, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo));
-        panelTransferir.add(textos.textos(" Cheque especial:", 0, 120, 380, 40, 20, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo));
         panelTransferir.setBackground(corCinza);
         panelTransferir.setLayout(null);
         panelTransferir.setVisible(false);
         panelTransferir.add(saldoTransferir);
         panelTransferir.add(chequeTransferir);
         panelTransferir.add(panelPix);
+        panelTransferir.add(panelTransferencia);
+        panelTransferir.add(textos.textos(" Saldo:", 0, 70, 380, 50, 25, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo));
+        panelTransferir.add(textos.textos(" Cheque especial:", 0, 120, 380, 40, 20, corCinza, corAmarelo, 0, 0, 0, 0, corAmarelo));
         
         panelTransferir.add(botoes.botaoVoltar(panelTransferir, Inicio));
         panelTransferir.add(textos.textos(" Transferir ", 50, 0, 520, 50, 25, Color.white, corAzul, 0, 0, 3, 0, Color.white));
@@ -466,6 +541,63 @@ public class App {
         panelExtrato.add(voltarExtrato);
 
 
+        botaoPix.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                panelTransferencia.setVisible(false);
+                panelPix.setVisible(true);
+                getTransferencia.setText("");
+                Atualiza_valores();
+                erroPix.setVisible(true);
+                EnviarPix.setVisible(false);
+            }
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                botaoPix.setBounds(0, 0, 300, 40);
+                botaoPix.setFont(new Font("Arial", Font.PLAIN, 30));
+                labelTransferir.setBounds(300, 0, 210, 40);
+                labelTransferir.setFont(new Font("Arial", Font.PLAIN, 25));
+                bordaTransferencia.setBounds(0, 0, 5, 500);
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+
+                botaoPix.setBounds(0, 0, 210, 40);
+                botaoPix.setFont(new Font("Arial", Font.PLAIN, 25));
+                labelTransferir.setBounds(210, 0, 300, 40);
+                labelTransferir.setFont(new Font("Arial", Font.PLAIN, 30));
+                bordaTransferencia.setBounds(0, 0, 10, 500);
+            }
+        });
+
+        botaoTransferencia.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                panelPix.setVisible(false);
+                panelTransferencia.setVisible(true);
+                getPix.setText("");
+                Atualiza_valores();
+                erroTransferir.setVisible(true);
+                botaoTransferencia.setVisible(false);
+            }
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+
+                labelPix.setBounds(0, 0, 210, 40);
+                labelPix.setFont(new Font("Arial", Font.PLAIN, 25));
+                botaoTransferencia.setBounds(210, 0, 300, 40);
+                botaoTransferencia.setFont(new Font("Arial", Font.PLAIN, 30));
+                bordaPix.setBounds(495, 0, 20, 500);
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                labelPix.setBounds(0, 0, 300, 40);
+                labelPix.setFont(new Font("Arial", Font.PLAIN, 30));
+                botaoTransferencia.setBounds(300, 0, 210, 40);
+                botaoTransferencia.setFont(new Font("Arial", Font.PLAIN, 25));
+                bordaPix.setBounds(490, 0, 20, 500);
+            }
+        });
 
         tituloPoupanca.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -498,26 +630,6 @@ public class App {
                 }
             }
         });
-        borderRegister.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                Entrar.setVisible(false);
-                Cadastrar.setVisible(true);
-            }
-        });
-        borderLogin.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                Cadastrar.setVisible(false);
-                Entrar.setVisible(true);
-            }
-        });
-
-        sair.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                Inicio.setVisible(false);
-                Entrar.setVisible(true);
-            }
-        });
-
 
         registrar.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -562,6 +674,82 @@ public class App {
 
             }
         });
+        getPix.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyReleased(KeyEvent e){
+                if(getPix.getText().isEmpty()){
+                    Atualiza_valores();
+                    EnviarPix.setVisible(false);
+                    erroPix.setVisible(true);
+                }
+                char lastChar = getPix.getText().charAt(getPix.getText().length() - 1);
+                if(lastChar == '0' || lastChar == '1' || lastChar == '2' || lastChar == '3' || lastChar == '4' || lastChar == '5' || lastChar == '6' || lastChar == '7' || lastChar == '8' || lastChar == '9' || lastChar == '.'){
+                    subtraiValores(Double.parseDouble(getPix.getText()), saldoTransferir, chequeTransferir);
+                    if(conta.getOperacao().equals("001")){
+                        if(Double.parseDouble(chequeTransferir.getText()) >= 0){
+                            EnviarPix.setVisible(true);
+                            erroPix.setVisible(false);
+                        }else{
+                            EnviarPix.setVisible(false);
+                            erroPix.setVisible(true);
+                        }
+                    }else{
+                        if(Double.parseDouble(saldoTransferir.getText()) >= 0){
+                            EnviarPix.setVisible(true);
+                            erroPix.setVisible(false);
+                        }else{
+                            EnviarPix.setVisible(false);
+                            erroPix.setVisible(true);
+                        }
+                    }
+                }else getPix.setText(getPix.getText().substring(0, getPix.getText().length()-1));
+                System.out.println(lastChar);
+
+                if(Double.parseDouble(saldoTransferir.getText()) <= 0){
+                    saldoTransferir.setForeground(Color.red);
+                }else saldoTransferir.setForeground(corCinza);
+                if(Double.parseDouble(chequeTransferir.getText()) < 300){
+                    chequeTransferir.setForeground(Color.red);
+                }else chequeTransferir.setForeground(corCinza);
+            }
+        });
+        getTransferencia.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyReleased(KeyEvent e){
+                if(getTransferencia.getText().isEmpty()){
+                    Atualiza_valores();
+                    BotaoTransferir.setVisible(false);
+                    erroTransferir.setVisible(true);
+                }
+                char lastChar = getTransferencia.getText().charAt(getTransferencia.getText().length() - 1);
+                if(lastChar == '0' || lastChar == '1' || lastChar == '2' || lastChar == '3' || lastChar == '4' || lastChar == '5' || lastChar == '6' || lastChar == '7' || lastChar == '8' || lastChar == '9' || lastChar == '.'){
+                    subtraiValores(Double.parseDouble(getTransferencia.getText()), saldoTransferir, chequeTransferir);
+                    if(conta.getOperacao().equals("001")){
+                        if(Double.parseDouble(chequeTransferir.getText()) >= 0){
+                            BotaoTransferir.setVisible(true);
+                            erroTransferir.setVisible(false);
+                        }else{
+                            BotaoTransferir.setVisible(false);
+                            erroTransferir.setVisible(true);
+                        }
+                    }else{
+                        if(Double.parseDouble(saldoTransferir.getText()) >= 0){
+                            BotaoTransferir.setVisible(true);
+                            erroTransferir.setVisible(false);
+                        }else{
+                            BotaoTransferir.setVisible(false);
+                            erroTransferir.setVisible(true);
+                        }
+                    }
+                }else getTransferencia.setText(getTransferencia.getText().substring(0, getTransferencia.getText().length()-1));
+                System.out.println(lastChar);
+
+                if(Double.parseDouble(saldoTransferir.getText()) <= 0){
+                    saldoTransferir.setForeground(Color.red);
+                }else saldoTransferir.setForeground(corCinza);
+                if(Double.parseDouble(chequeTransferir.getText()) < 300){
+                    chequeTransferir.setForeground(Color.red);
+                }else chequeTransferir.setForeground(corCinza);
+            }
+        });
         getSaque.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyReleased(KeyEvent e){
                 if(getSaque.getText().isEmpty()){
@@ -571,71 +759,23 @@ public class App {
                 }
                 char lastChar = getSaque.getText().charAt(getSaque.getText().length() - 1);
                 if(lastChar == '0' || lastChar == '1' || lastChar == '2' || lastChar == '3' || lastChar == '4' || lastChar == '5' || lastChar == '6' || lastChar == '7' || lastChar == '8' || lastChar == '9' || lastChar == '.'){
-                    if(Double.parseDouble(getSaque.getText()) < conta.getSaldo()){
-                        segueSaque.setVisible(true);
-                        erroSaque.setVisible(false);
-                        chequeSaque.setText(Double.toString(conta.getCheque()));
-                        String valorSaldo = Double.toString(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
-                        if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
-                            saldoSaque.setText(valorSaldo);
-                        }else saldoSaque.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
-    
-                    }else{
-                        if(conta.getSaldo() <= 0){
-                            if(Double.parseDouble(getSaque.getText()) <= conta.getCheque()){
-                                segueSaque.setVisible(true);
-                                erroSaque.setVisible(false);
-                                String valor = Double.toString(conta.getCheque() - Double.parseDouble(getSaque.getText()));
-                                String valorSaldo = Double.toString(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
-                            
-                                if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
-                                    saldoSaque.setText(valorSaldo);
-                                }else saldoSaque.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
-                                if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
-                                    chequeSaque.setText(valor);
-                                }else chequeSaque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
-                            }else{
-                                String valorSaldo = Double.toString(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
-                                if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
-                                    saldoSaque.setText(valorSaldo);
-                                }else saldoSaque.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
-                                String valor = Double.toString(conta.getCheque() - Double.parseDouble(getSaque.getText()));
-                                if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
-                                    chequeSaque.setText(valor);
-                                }else chequeSaque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
-                                segueSaque.setVisible(false);
-                                erroSaque.setVisible(true);
-                            }
+                    subtraiValores(Double.parseDouble(getSaque.getText()), saldoSaque, chequeSaque);
+                    if(conta.getOperacao().equals("001")){
+                        if(Double.parseDouble(chequeSaque.getText()) >= 0){
+                            segueSaque.setVisible(true);
+                            erroSaque.setVisible(false);
                         }else{
-                            if(Double.parseDouble(getSaque.getText()) <= (conta.getSaldo() + conta.getCheque())){
-                            
-                                segueSaque.setVisible(true);
-                                erroSaque.setVisible(false);
-                                String valor = Double.toString((conta.getSaldo() + conta.getCheque()) - Double.parseDouble(getSaque.getText()));
-                                String valorSaldo = Double.toString(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
-                                
-                                if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
-                                    saldoSaque.setText(valorSaldo);
-                                }else saldoSaque.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
-                                if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
-                                    chequeSaque.setText(valor);
-                                }else chequeSaque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
-                                
-                            }else{
-                                String valorSaldo = Double.toString(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
-                                if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
-                                    saldoSaque.setText(valorSaldo);
-                                }else saldoSaque.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
-                                String valor = Double.toString((conta.getSaldo() + conta.getCheque()) - Double.parseDouble(getSaque.getText()));
-                                if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
-                                    chequeSaque.setText(valor);
-                                }else chequeSaque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
-                                segueSaque.setVisible(false);
-                                erroSaque.setVisible(true);
-                            }
+                            segueSaque.setVisible(false);
+                            erroSaque.setVisible(true);
                         }
-                        
-                        
+                    }else{
+                        if(Double.parseDouble(saldoSaque.getText()) >= 0){
+                            segueSaque.setVisible(true);
+                            erroSaque.setVisible(false);
+                        }else{
+                            segueSaque.setVisible(false);
+                            erroSaque.setVisible(true);
+                        }
                     }
                 }else getSaque.setText(getSaque.getText().substring(0, getSaque.getText().length()-1));
                 System.out.println(lastChar);
@@ -643,7 +783,7 @@ public class App {
                 if(Double.parseDouble(saldoSaque.getText()) <= 0){
                     saldoSaque.setForeground(Color.red);
                 }else saldoSaque.setForeground(corCinza);
-                if(Double.parseDouble(chequeSaque.getText()) <= 0){
+                if(Double.parseDouble(chequeSaque.getText()) < 300){
                     chequeSaque.setForeground(Color.red);
                 }else chequeSaque.setForeground(corCinza);
             }
@@ -652,6 +792,21 @@ public class App {
         voltarExtrato.addActionListener(new java.awt.event.ActionListener(){
             public void actionPerformed(ActionEvent e){
                 panelRoll.removeAll();
+            }
+        });
+        sair.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                Inicio.setVisible(false);
+                Entrar.setVisible(true);
+            }
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                sair.setBounds(400, 0, 110, 50);
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                sair.setBounds(410, 0, 120, 50);
             }
         });
         botaoRegister.addMouseListener(new MouseAdapter() {
@@ -666,7 +821,7 @@ public class App {
                 labelEntrar.setFont(new Font("Arial", Font.PLAIN, 25));
                 botaoRegister.setBounds(210, 110, 300, 40);
                 botaoRegister.setFont(new Font("Arial", Font.PLAIN, 30));
-                borderRegister.setBounds(490, 140, 30, 680);
+                borderRegister.setBounds(490, 150, 30, 680);
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
@@ -674,7 +829,7 @@ public class App {
                 labelEntrar.setFont(new Font("Arial", Font.PLAIN, 30));
                 botaoRegister.setBounds(300, 110, 210, 40);
                 botaoRegister.setFont(new Font("Arial", Font.PLAIN, 25));
-                borderRegister.setBounds(485, 140, 35, 680);
+                borderRegister.setBounds(485, 150, 35, 680);
             }
         });
         botaoLogin.addMouseListener(new MouseAdapter() {
@@ -689,7 +844,7 @@ public class App {
                 botaoLogin.setFont(new Font("Arial", Font.PLAIN, 30));
                 labelCadastrar.setBounds(300, 110, 210, 40);
                 labelCadastrar.setFont(new Font("Arial", Font.PLAIN, 25));
-                borderLogin.setBounds(0, 140, 10, 680);
+                borderLogin.setBounds(0, 150, 10, 680);
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
@@ -698,7 +853,7 @@ public class App {
                 botaoLogin.setFont(new Font("Arial", Font.PLAIN, 25));
                 labelCadastrar.setBounds(210, 110, 300, 40);
                 labelCadastrar.setFont(new Font("Arial", Font.PLAIN, 30));
-                borderLogin.setBounds(0, 140, 20, 680);
+                borderLogin.setBounds(0, 150, 15, 680);
             }
         });
         segueSaque.addMouseListener(new MouseAdapter() {
@@ -706,6 +861,8 @@ public class App {
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 panelSacar.setVisible(false);
                 panelVerificaSenha.setVisible(true);
+                segueSaque.setVisible(false);
+                erroSaque.setVisible(true);
                 VerificaSenha(Inicio, panelVerificaSenha, validar, verifica, 2);
             }
             @Override
@@ -775,6 +932,12 @@ public class App {
                                 while(rsConta.next()){
                                     conta = new Conta(rsConta.getInt("numero"), rsConta.getString("pixnumero"), rsConta.getString("pixemail"), rsConta.getString("pixcpf"), rsConta.getInt("agencia"), rsConta.getString("operacao"), rsConta.getDouble("saldo"), rsConta.getDouble("cheque"), rsConta.getInt("cliente"), rsConta.getString("senha"));
                                 }
+                                if(conta.getOperacao().equals("013")){
+                                    chequeInicial.setVisible(false);
+                                    labelCheque.setVisible(false);
+                                    labelChequeSaque.setVisible(false);
+                                    chequeSaque.setVisible(false);
+                                }
                                 Atualiza_valores();
                                 System.out.println(conta.getSaldo());
                             } catch (Exception en) {
@@ -804,6 +967,10 @@ public class App {
                             operacao = "001";
                             cheque = 300.0;
                         }else{
+                            chequeInicial.setVisible(false);
+                            labelCheque.setVisible(false);
+                            labelChequeSaque.setVisible(false);
+                            chequeSaque.setVisible(false);
                             operacao = "013";
                             cheque = 0.0;
                         } 
@@ -899,28 +1066,35 @@ public class App {
     }
 
     public static void saca(){
-        if(Double.parseDouble(getSaque.getText()) < conta.getSaldo()){
+        if(conta.getOperacao().equals("001")){
+            if(Double.parseDouble(getSaque.getText()) < conta.getSaldo()){
+                Double valorSaldo = conta.getSaldo() - Double.parseDouble(getSaque.getText());
+                con.atualizaSaldo(valorSaldo, cliente.getId());
+                con.InsereExtrato(conta.getNumero(), "Saque", Double.parseDouble(getSaque.getText()), conta.getCheque(), conta.getSaldo(), valorSaldo, " ");
+                conta.setSaldo(valorSaldo);
+            }else{
+                if(conta.getSaldo() <= 0){
+                    Double valorCheque = (conta.getCheque() - Double.parseDouble(getSaque.getText()));
+                    con.atualizaSaldo((conta.getSaldo() - Double.parseDouble(getSaque.getText())), cliente.getId());
+                    con.atualizaCheque(valorCheque, cliente.getId());
+                    con.InsereExtrato(conta.getNumero(), "Saque", Double.parseDouble(getSaque.getText()), valorCheque, conta.getSaldo(), (conta.getSaldo() - Double.parseDouble(getSaque.getText())), "Utilização do cheque especial");
+                    conta.setSaldo(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
+                    conta.setCheque(valorCheque);
+                }else{
+                    Double valorCheque = (conta.getSaldo() + conta.getCheque()) - Double.parseDouble(getSaque.getText());
+                    con.atualizaSaldo((conta.getSaldo() - Double.parseDouble(getSaque.getText())), cliente.getId());
+                    con.atualizaCheque(valorCheque, cliente.getId());
+                    con.InsereExtrato(conta.getNumero(), "Saque", Double.parseDouble(getSaque.getText()), valorCheque, conta.getSaldo(), (conta.getSaldo() - Double.parseDouble(getSaque.getText())), "Utilização do cheque especial");
+                    conta.setSaldo(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
+                    conta.setCheque(valorCheque);
+                }
+                
+            }
+        }else{
             Double valorSaldo = conta.getSaldo() - Double.parseDouble(getSaque.getText());
             con.atualizaSaldo(valorSaldo, cliente.getId());
             con.InsereExtrato(conta.getNumero(), "Saque", Double.parseDouble(getSaque.getText()), conta.getCheque(), conta.getSaldo(), valorSaldo, " ");
             conta.setSaldo(valorSaldo);
-        }else{
-            if(conta.getSaldo() <= 0){
-                Double valorCheque = (conta.getCheque() - Double.parseDouble(getSaque.getText()));
-                con.atualizaSaldo((conta.getSaldo() - Double.parseDouble(getSaque.getText())), cliente.getId());
-                con.atualizaCheque(valorCheque, cliente.getId());
-                con.InsereExtrato(conta.getNumero(), "Saque", Double.parseDouble(getSaque.getText()), valorCheque, conta.getSaldo(), (conta.getSaldo() - Double.parseDouble(getSaque.getText())), "Utilização do cheque especial");
-                conta.setSaldo(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
-                conta.setCheque(valorCheque);
-            }else{
-                Double valorCheque = (conta.getSaldo() + conta.getCheque()) - Double.parseDouble(getSaque.getText());
-                con.atualizaSaldo((conta.getSaldo() - Double.parseDouble(getSaque.getText())), cliente.getId());
-                con.atualizaCheque(valorCheque, cliente.getId());
-                con.InsereExtrato(conta.getNumero(), "Saque", Double.parseDouble(getSaque.getText()), valorCheque, conta.getSaldo(), (conta.getSaldo() - Double.parseDouble(getSaque.getText())), "Utilização do cheque especial");
-                conta.setSaldo(conta.getSaldo() - Double.parseDouble(getSaque.getText()));
-                conta.setCheque(valorCheque);
-            }
-            
         }
         Atualiza_valores(); 
         getSaque.setText("");
@@ -958,6 +1132,60 @@ public class App {
         Atualiza_valores();
         getDeposito.setText("");
     }
+    public static void subtraiValores(Double valorRetirada, JLabel saldo, JLabel cheque){
+            if(valorRetirada < conta.getSaldo()){
+                cheque.setText(Double.toString(conta.getCheque()));
+                String valorSaldo = Double.toString(conta.getSaldo() - valorRetirada);
+                if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
+                    saldo.setText(valorSaldo);
+                }else saldo.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
+            }else{
+                if(conta.getSaldo() <= 0){
+                    if(valorRetirada <= conta.getCheque()){
+                        String valor = Double.toString(conta.getCheque() - valorRetirada);
+                        String valorSaldo = Double.toString(conta.getSaldo() - valorRetirada);
+                    
+                        if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
+                            saldo.setText(valorSaldo);
+                        }else saldo.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
+                        if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
+                            cheque.setText(valor);
+                        }else cheque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
+                    }else{
+                        String valorSaldo = Double.toString(conta.getSaldo() - valorRetirada);
+                        if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
+                            saldo.setText(valorSaldo);
+                        }else saldo.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
+                        String valor = Double.toString(conta.getCheque() - valorRetirada);
+                        if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
+                            cheque.setText(valor);
+                        }else cheque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
+                    }
+                }else{
+                    if(valorRetirada <= (conta.getSaldo() + conta.getCheque())){
+                        String valor = Double.toString((conta.getSaldo() + conta.getCheque()) - valorRetirada);
+                        String valorSaldo = Double.toString(conta.getSaldo() - valorRetirada);
+                        
+                        if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
+                            saldo.setText(valorSaldo);
+                        }else saldo.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
+                        if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
+                            cheque.setText(valor);
+                        }else cheque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
+                        
+                    }else{
+                        String valorSaldo = Double.toString(conta.getSaldo() - valorRetirada);
+                        if(valorSaldo.indexOf(".") == -1 || valorSaldo.length() < (valorSaldo.indexOf(".") + 3)){
+                            saldo.setText(valorSaldo);
+                        }else saldo.setText(valorSaldo.substring(0, (valorSaldo.indexOf(".") + 3)));
+                        String valor = Double.toString((conta.getSaldo() + conta.getCheque()) - valorRetirada);
+                        if(valor.indexOf(".") == -1 || valor.length() < (valor.indexOf(".") + 3)){
+                            cheque.setText(valor);
+                        }else cheque.setText(valor.substring(0, (valor.indexOf(".") + 3)));
+                    }
+                }
+            }
+    }
 
     public static JPanel showExtrato(int i){
 
@@ -992,8 +1220,6 @@ public class App {
             cheque = Double.toString(extrato.getCheque()).substring(0, (Double.toString(extrato.getCheque()).indexOf(".") + 3));
         }
 
-
-        Color corAmarelo = new Color(254,170,58);
         JLabel data = new JLabel(extrato.getData());
         data.setFont(new Font("Arial", Font.PLAIN, 20));
         data.setBounds(10, 20, 150, 20);
@@ -1039,6 +1265,11 @@ public class App {
         Saldocheque.setBounds(170, 120, 200, 20);
         Saldocheque.setForeground(Color.black);
 
+        if(conta.getOperacao().equals("013")){
+            labelCheque.setVisible(false);
+            Saldocheque.setVisible(false);
+        }
+
         JLabel detalhes = new JLabel(extrato.getDetalhes());
         detalhes.setFont(new Font("Arial", Font.PLAIN, 20));
         detalhes.setBounds(10, 150, 300, 20);
@@ -1066,16 +1297,41 @@ public class App {
         if(Double.toString(conta.getSaldo()).indexOf(".") == -1 || Double.toString(conta.getSaldo()).length() < (Double.toString(conta.getSaldo()).indexOf(".") + 3)){
             saldoInicial.setText(Double.toString(conta.getSaldo()));
             saldoSaque.setText(Double.toString(conta.getSaldo()));
+            saldoTransferir.setText(Double.toString(conta.getSaldo()));
         }else{
             saldoInicial.setText(Double.toString(conta.getSaldo()).substring(0, (Double.toString(conta.getSaldo()).indexOf(".") + 3)));
             saldoSaque.setText(Double.toString(conta.getSaldo()).substring(0, (Double.toString(conta.getSaldo()).indexOf(".") + 3)));
+            saldoTransferir.setText(Double.toString(conta.getSaldo()).substring(0, (Double.toString(conta.getSaldo()).indexOf(".") + 3)));
         } 
         if(Double.toString(conta.getCheque()).indexOf(".") == -1 || Double.toString(conta.getCheque()).length() < (Double.toString(conta.getCheque()).indexOf(".") + 3)){
             chequeInicial.setText(Double.toString(conta.getCheque()));
             chequeSaque.setText(Double.toString(conta.getCheque()));
+            chequeTransferir.setText(Double.toString(conta.getCheque()));
         }else{
             chequeInicial.setText(Double.toString(conta.getCheque()).substring(0, (Double.toString(conta.getCheque()).indexOf(".") + 3)));
             chequeSaque.setText(Double.toString(conta.getCheque()).substring(0, (Double.toString(conta.getCheque()).indexOf(".") + 3)));
+            chequeTransferir.setText(Double.toString(conta.getCheque()).substring(0, (Double.toString(conta.getCheque()).indexOf(".") + 3)));
         } 
+        if(conta.getSaldo() <= 0){
+            saldoInicial.setForeground(Color.red);
+            saldoSaque.setForeground(Color.red);
+            saldoTransferir.setForeground(Color.red);
+            campoInicial.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, corVermelho));
+        }else{
+            saldoInicial.setForeground(corCinza);
+            saldoSaque.setForeground(corCinza);
+            saldoTransferir.setForeground(corCinza);
+            campoInicial.setBackground(corAmarelo);
+            campoInicial.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, corVermelho));
+        }
+        if(conta.getCheque() < 300){
+            chequeInicial.setForeground(corVermelho);
+            chequeSaque.setForeground(Color.red);
+            chequeTransferir.setForeground(Color.red);
+        }else{
+            chequeInicial.setForeground(Color.white);
+            chequeSaque.setForeground(corCinza);
+            chequeTransferir.setForeground(corCinza);
+        }
     }
 }
