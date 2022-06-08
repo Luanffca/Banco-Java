@@ -4,8 +4,9 @@ public class Emprestimo {
     private Conta devedor;
     private boolean aprovado;
     private int parcelas;
+    private double emprestimo;
 
-    //Métodos Especiais
+    
     public Conta getCredor(){    
         return credor;  
     }
@@ -22,7 +23,7 @@ public class Emprestimo {
         this.devedor = devedor;
     }
 
-    public boolean isAprovado() {
+    public boolean getAprovado() {
         return aprovado;
     }
 
@@ -38,17 +39,24 @@ public class Emprestimo {
         this.parcelas = parcelas;
     }
 
+    public double getEmprestimo() {
+        return emprestimo;
+    }
+
+    public void setEmprestimo(double emprestimo) {    
+        this.emprestimo = emprestimo;
+    }
+
     //Métodos
     public void pedirEmprestimo(Conta c, Conta d) {
-        if (c.getSaldo()*0.30 > d.getEmprestimo()){
+        if (c.getSaldo()*0.30 > getEmprestimo() && c.getOperacao() == "001"){
             this.aprovado = true;
             System.out.println("Emprestimo aprovado!");
             
             this.credor = c;
-            this.devedor = d;
             
-            float e = d.getEmprestimo();
-            float s = d.getSalario();
+            double e = getEmprestimo();
+            double s = d.getSaldo();
             calcularParcelas(s, e);
         }
         else{
@@ -60,22 +68,22 @@ public class Emprestimo {
         }
     }
 
-    public void calcularParcelas(float s, float e){
-        float p = s*0.30f;
-        float n = e/p; 
+    public void calcularParcelas(double s, double e){
+        double p = s*0.30f;
+        double n = e/p; 
         System.out.println("Numero de parcelas: " + n);
         System.out.println("Valor das parcelas: " + p);
         emprestar(e);
     }
 
-    public void emprestar(float e){
+    public void emprestar(double e){
         this.credor.setSaldo(this.credor.getSaldo()-e);
         System.out.println("Emprestimo efetuado de: " + e);
-        System.out.println("Debitado da conta corrente, novo saldo: " + this.credor.getSaldoCC());
+        System.out.println("Debitado da conta corrente, novo saldo: " + this.credor.getSaldo());
         
         this.devedor.setSaldo(this.devedor.getSaldo()+e);
         System.out.println("Emprestimo creditado de: " + e);
-        System.out.println("Creditado na conta corrente, novo saldo: " + this.devedor.getSaldoCC());
+        System.out.println("Creditado na conta corrente, novo saldo: " + this.devedor.getSaldo());
         System.out.println("========================================================");
     }
 }
