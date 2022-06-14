@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Date;
 
 public class Conexao {
 	private String url;
@@ -45,6 +46,45 @@ public class Conexao {
 		}
 	}
 
+	public void criaConta(int id,String cpf, String email, String celular, Double cheque, String operacao, String senha) {
+		try {
+			String sql = "INSERT INTO conta( pixnumero, pixemail, pixcpf, agencia , operacao , saldo, cheque, cliente, senha) VALUES(?, ?, ?, 701, ?, 0.0, ?, ?, ?)";			
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, celular);
+			statement.setString(2, email);
+			statement.setString(3, cpf);
+			statement.setString(4, operacao);
+			statement.setDouble(5, cheque);
+			statement.setInt(6, id);
+			statement.setString(7, senha);
+			statement.execute();
+
+		} catch (Exception e){
+			e.printStackTrace();
+
+		}
+	}
+
+	public void InsereExtrato(int idconta, String transacao, Double valor, Double saldocheque, Double saldoanterior, Double saldoatualizado, String detalhes) {
+		try {
+			String sql = "INSERT INTO extrato(idTransacao, idconta, datahora, transacao, valor, saldocheque, saldoanterior, saldoatualizado, detalhes) VALUES((SELECT COALESCE(MAX(idTransacao),0)+ 1 FROM extrato WHERE idconta = ?), ?, current_timestamp, ?, ?, ?, ?, ?, ?)";			
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, idconta);
+			statement.setInt(2, idconta);
+			statement.setString(3, transacao);
+			statement.setDouble(4, valor);
+			statement.setDouble(5, saldocheque);
+			statement.setDouble(6, saldoanterior);
+			statement.setDouble(7, saldoatualizado);
+			statement.setString(8, detalhes);
+			statement.execute();
+
+		} catch (Exception e){
+			e.printStackTrace();
+
+		}
+	}
+
 	public ResultSet getUsuario(String dados){
 		try {
 			String sql = "SELECT * FROM cliente WHERE usuario = ?";
@@ -58,19 +98,6 @@ public class Conexao {
 		}
 	}
 
-	public ResultSet getConta(int dados){
-		try {
-			String sql = "SELECT * FROM conta WHERE cliente = ?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, dados);
-			ResultSet rs = statement.executeQuery();
-			return rs;
-		} catch (Exception e){
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
 	public ResultSet BuscaUsuario(String dados) {
 		try {
 			String sql = "Select senha From Cliente Where usuario = ?";
@@ -84,24 +111,63 @@ public class Conexao {
 		}
 	}
 
-	public void criaPoupanca(int id,String cpf, String email, String celular, int senha) {
+	public ResultSet BuscaUsuarioEmail(String dados) {
 		try {
-			String sql = "INSERT INTO conta( pixnumero, pixemail, pixcpf, agencia , operacao , saldo, cheque, cliente, senha) VALUES(?, ?, ?, 701, 013, 0.0, 0.0, ?, ?)";			
+			String sql = "Select email From Cliente Where usuario = ?";
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, celular);
-			statement.setString(2, email);
-			statement.setString(3, cpf);
-			statement.setInt(4, id);
-			statement.setInt(5, senha);
-			statement.execute();
-
+			statement.setString(1, dados);
+			ResultSet rs = statement.executeQuery();
+			return rs;
 		} catch (Exception e){
 			e.printStackTrace();
-
+			return null;
 		}
 	}
 
-	public void updatePoupanca(double saldo, int id) {
+
+	public ResultSet getConta(int dados){
+		try {
+			String sql = "SELECT * FROM conta WHERE cliente = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, dados);
+			ResultSet rs = statement.executeQuery();
+			return rs;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public ResultSet getExtrato(int idconta, int idtransacao){
+		try {
+			String sql = "SELECT * FROM extrato WHERE idconta = ? AND idtransacao = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, idconta);
+			statement.setInt(2, idtransacao);
+			ResultSet rs = statement.executeQuery();
+			return rs;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	public ResultSet qntOperacao(int dados) {
+		try {
+			String sql = "select count(idconta) from extrato where idconta = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, dados);
+			ResultSet rs = statement.executeQuery();
+			return rs;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
+
+	public void atualizaSaldo(double saldo, int id) {
 		try {
 			String sql = "UPDATE CONTA SET SALDO = ? WHERE CLIENTE = ?;";			
 			PreparedStatement statement = con.prepareStatement(sql);
@@ -114,5 +180,34 @@ public class Conexao {
 
 		}
     }
+	public void atualizaCheque(double cheque, int id) {
+		try {
+			String sql = "UPDATE CONTA SET CHEQUE = ? WHERE CLIENTE = ?;";			
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setDouble(1, cheque);
+			statement.setInt(2, id);
+			statement.execute();
+
+		} catch (Exception e){
+			e.printStackTrace();
+
+		}
+    }
+
+	public void atualizaSenha(String senha, String usuario, String email) {
+		try {
+			String sql = "UPDATE CLIENTE SET SENHA = ? WHERE USUARIO = ? AND EMAIL = ?;";			
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, senha);
+			statement.setString(2, usuario);
+			statement.setString(3, email);
+			statement.execute();
+
+		} catch (Exception e){
+			e.printStackTrace();
+
+		}
+    }
+	
 
 }

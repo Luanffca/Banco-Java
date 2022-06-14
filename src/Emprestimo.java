@@ -1,5 +1,5 @@
 public class Emprestimo {
-    //Atributos
+
     private Conta credor;
     private Conta devedor;
     private boolean aprovado;

@@ -122,14 +122,6 @@ public class Cliente {
 	public void setSenha(String senha){
 		this.senha = senha;
 	}
-	public Poupanca criaCp(){
-		Poupanca cp = new Poupanca(013, 071);
-		return cp;
-	}
-	public Corrente criaCc(){
-		Corrente cc = new Corrente(001, 071);
-		return cc;
-	}
 
     public boolean isCPF(String CPF) {
         if (CPF.equals("00000000000") ||
