@@ -35,7 +35,6 @@ public class App {
     static JFormattedTextField getPixCPF;
     static JTextField getPixEmail;
     static JFormattedTextField getPixNumero;
-    static JTextField getEmprestimo;
     static JLabel campoInicial;
 
     static Conexao con = new Conexao();
@@ -69,6 +68,8 @@ public class App {
         JPanel panelRoll = new JPanel();
         JPanel panelRecupera = panel.painel(Entrar);
         JPanel panelSenha = panel.telasenha(Entrar);
+        JPanel panelEmprestimo = panel.Emprestimo(Inicio);
+        JPanel panelEmprestimoAceito = panel.EmprestimoAceito(Inicio);
 
         // TELA ENTRAR
         JButton registrar = botoes.botao("Cadastrar", corAmarelo, Color.black, 100, 610, 310, 40, 30);
@@ -247,7 +248,7 @@ public class App {
         JButton sacar = botoes.botaoInicial(" Sacar",0, 280, Inicio, panelSacar);
         JButton extrato = botoes.botaoInicial(" Extrato",0, 350, Inicio, panelExtrato);
         JButton transferir = botoes.botaoInicial(" Transferir",0, 420, Inicio, panelTransferir);
-        JButton pix = botoes.botaoInicial(" Empréstimo",0, 490, Inicio, panelTransferir);
+        JButton pix = botoes.botaoInicial(" Empréstimo",0, 490, Inicio, panelEmprestimo);
         JButton minhaConta = botoes.botaoInicial(" Conta",0, 560, Inicio, panelTransferir);
         /*
         JButton iconDepositar = botoes.botao(corAmarelo, 0, 210, 50, 50);
@@ -1037,6 +1038,8 @@ public class App {
         panelExtrato.setSize(janela.getSize());
         panelRecupera.setSize(janela.getSize());
         panelSenha.setSize(janela.getSize());
+        panelEmprestimo.setSize(janela.getSize());
+        panelEmprestimoAceito.setSize(janela.getSize());
         scroll.setSize(new DimensionUIResource(505, 630));
 
         Container Pane = janela.getContentPane();
@@ -1045,6 +1048,8 @@ public class App {
         Pane.add(tpConta);
         Pane.add(Inicio);
         Pane.add(panelRecupera);
+        Pane.add(panelEmprestimo);
+        Pane.add(panelEmprestimoAceito);
         Pane.add(panelSenha);
         Pane.add(panelVerificaSenha);
         Pane.add(panelDepositar);

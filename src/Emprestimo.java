@@ -48,32 +48,22 @@ public class Emprestimo {
     }
 
     //Métodos
-    public void pedirEmprestimo(Conta c, Conta d) {
-        if (c.getSaldo()*0.30 > getEmprestimo() && c.getOperacao() == "001"){
-            this.aprovado = true;
+    public boolean pedirEmprestimo(double saldo, double emprestimo) {
+        if(saldo+(saldo*0.30) > emprestimo){
             System.out.println("Emprestimo aprovado!");
-            
-            this.credor = c;
-            
-            double e = getEmprestimo();
-            double s = d.getSaldo();
-            calcularParcelas(s, e);
-        }
-        else{
+            calcularParcelas(saldo, emprestimo);
+            return (true);
+        }else{
             System.out.println("Credor não aprovado para emprestar.");
             System.out.println("========================================================");
-            this.aprovado = false;
-            this.credor = null;
-            this.devedor = null;
         }
+        return aprovado;
     }
-
     public void calcularParcelas(double s, double e){
         double p = s*0.30f;
         double n = e/p; 
         System.out.println("Numero de parcelas: " + n);
         System.out.println("Valor das parcelas: " + p);
-        emprestar(e);
     }
 
     public void emprestar(double e){
@@ -85,5 +75,23 @@ public class Emprestimo {
         System.out.println("Emprestimo creditado de: " + e);
         System.out.println("Creditado na conta corrente, novo saldo: " + this.devedor.getSaldo());
         System.out.println("========================================================");
+    }
+
+    public void pedirEmprestimo(Conta c, Conta d) {
+        if (c.getSaldo()*0.30 > getEmprestimo() && c.getOperacao() == "001"){
+            this.aprovado = true;
+            System.out.println("Emprestimo aprovado!");
+            this.credor = c;
+            double e = getEmprestimo();
+            double s = d.getSaldo();
+            calcularParcelas(s, e);
+        }
+        else{
+            System.out.println("Credor não aprovado para emprestar.");
+            System.out.println("========================================================");
+            this.aprovado = false;
+            this.credor = null;
+            this.devedor = null;
+        }
     }
 }

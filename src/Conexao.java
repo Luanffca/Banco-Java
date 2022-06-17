@@ -180,6 +180,19 @@ public class Conexao {
 
 		}
     }
+	public void atualizaSaldoEmprestimo(double saldo, int id) {
+		try {
+			String sql = "UPDATE CONTA SET SALDO = ? WHERE NUMERO = ?;";			
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setDouble(1, saldo);
+			statement.setInt(2, id);
+			statement.execute();
+
+		} catch (Exception e){
+			e.printStackTrace();
+
+		}
+    }
 	public void atualizaCheque(double cheque, int id) {
 		try {
 			String sql = "UPDATE CONTA SET CHEQUE = ? WHERE CLIENTE = ?;";			
@@ -208,6 +221,29 @@ public class Conexao {
 
 		}
     }
-	
+	public ResultSet BuscaCredorEmprestimo(int dados) {
+		try {
+			String sql = "SELECT numero FROM conta WHERE numero = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, dados);
+			ResultSet rs = statement.executeQuery();
+			return rs;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public ResultSet BuscaCredorEmprestimoSaldo(int dados) {
+		try {
+			String sql = "SELECT saldo FROM conta WHERE numero = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, dados);
+			ResultSet rs = statement.executeQuery();
+			return rs;
+		} catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

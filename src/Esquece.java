@@ -16,12 +16,16 @@ public class Esquece {
     static Color corVermelho = new Color(234,100,30);
     static JPanel window_tela;
     static JPanel window;
+    static JPanel windowEmprestimo, windowEmprestimoAceito;
     static Texto textos = new Texto();
     static Botao botoes = new Botao();
     static campoTxt campos = new campoTxt();
     static String loginUsuario, loginEmail, loginSenha,loginCSenha;
+    static int credorEmprestimo, nunConta;
+    static double valorEmpresimo;
     static Conexao con = new Conexao();
     static Conta conta = null;
+    static Emprestimo empresta =  new Emprestimo();
     public JPanel painel(JPanel anterior){
         JTextField getEmail, getUser;
         window = new JPanel();
@@ -137,5 +141,105 @@ public class Esquece {
 
         return window_tela;
     } 
+    public JPanel Emprestimo(JPanel anterior){
+        JTextField getCredor, getVemprestimo;
+        windowEmprestimo = new JPanel();
+        windowEmprestimo.setBackground(corCinza);
+        windowEmprestimo.setVisible(false);
+        windowEmprestimo.setLayout(null);
 
+        getCredor = new JTextField();
+        getCredor.setBounds(20, 150, 460, 50);
+        getCredor.setFont(new Font("Arial", Font.PLAIN, 30));
+        getCredor.setHorizontalAlignment(SwingConstants.CENTER);
+        getCredor.setForeground(Color.white);
+        getCredor.setBackground(corCinza);
+        getCredor.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.white));
+        
+        getVemprestimo = new JTextField();
+        getVemprestimo.setBounds(20, 350, 460, 50);
+        getVemprestimo.setFont(new Font("Arial", Font.PLAIN, 30));
+        getVemprestimo.setHorizontalAlignment(SwingConstants.CENTER);
+        getVemprestimo.setForeground(Color.white);
+        getVemprestimo.setBackground(corCinza);
+        getVemprestimo.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.white));
+        
+        JButton segueEmprestimo = botoes.botao("Prosseguir", corAzul, Color.white, 100, 500, 300, 40, 30, 1, 3, 3, 1, Color.white);
+
+        segueEmprestimo.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                credorEmprestimo = Integer.parseInt(getCredor.getText());
+                valorEmpresimo = Double.parseDouble(getVemprestimo.getText());
+                try {
+            		ResultSet rs = con.BuscaCredorEmprestimo(credorEmprestimo);
+                    ResultSet rsaldo = con.BuscaCredorEmprestimoSaldo(credorEmprestimo);
+                    if (rs.next() && rsaldo.next()){
+                        double bancoSaldo = rsaldo.getDouble("saldo");
+                        System.out.println(bancoSaldo);
+                        if(empresta.pedirEmprestimo(bancoSaldo, valorEmpresimo)){
+                            windowEmprestimoAceito.setVisible(true);
+                            windowEmprestimo.setVisible(false);
+                        }
+                    }else System.out.println("Conta nao Encontrada.");
+                } catch (Exception es) {
+                    es.printStackTrace();
+                }
+            }
+        });
+
+        windowEmprestimo.add(textos.textosAlinhados("Digite o numero da Conta do Credor", 0, 100, 520, 50, 25, Color.white));
+        windowEmprestimo.add(textos.textosAlinhados("Valor do Empréstimo", 0, 300, 520, 50, 25, Color.white));
+        windowEmprestimo.add(textos.textos(" Empréstimo ", 50, 0, 520, 50, 25, Color.white, corAzul, 0, 0, 3, 0, Color.white));
+        windowEmprestimo.add(getVemprestimo);
+        windowEmprestimo.add(getCredor);
+        windowEmprestimo.add(segueEmprestimo);
+        windowEmprestimo.add(botoes.botaoVoltar(windowEmprestimo, anterior));
+        return windowEmprestimo;
+    }
+
+    public JPanel EmprestimoAceito(JPanel proxima){
+        windowEmprestimoAceito = new JPanel();
+        windowEmprestimoAceito.setBackground(corCinza);
+        windowEmprestimoAceito.setVisible(false);
+        windowEmprestimoAceito.setLayout(null);
+
+        JTextField getContaUser = new JTextField();
+        getContaUser.setBounds(20, 150, 460, 50);
+        getContaUser.setFont(new Font("Arial", Font.PLAIN, 30));
+        getContaUser.setHorizontalAlignment(SwingConstants.CENTER);
+        getContaUser.setForeground(Color.white);
+        getContaUser.setBackground(corCinza);
+        getContaUser.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.white));
+        
+        JButton segueEmprestimo = botoes.botao("Prosseguir", corAzul, Color.white, 100, 500, 300, 40, 30, 1, 3, 3, 1, Color.white);
+        
+        segueEmprestimo.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                nunConta = Integer.parseInt(getContaUser.getText());
+                try {
+            		ResultSet rs = con.BuscaCredorEmprestimo(nunConta);
+                    ResultSet rsaldo = con.BuscaCredorEmprestimoSaldo(nunConta);
+                    if (rs.next() && rsaldo.next()){
+                        double bancoSaldo = rsaldo.getDouble("saldo");
+                        double saldoAtualizado = bancoSaldo + valorEmpresimo;
+                        con.atualizaSaldoEmprestimo(saldoAtualizado, nunConta);
+                        proxima.setVisible(true);
+                        windowEmprestimoAceito.setVisible(false);
+                    }
+                } catch (Exception es) {
+                    es.printStackTrace();
+                }
+            }
+        });
+
+        windowEmprestimoAceito.add(textos.textosAlinhados("Digite Numero da sua Conta", 0, 100, 520, 50, 25, Color.white));
+        windowEmprestimoAceito.add(textos.textos(" Empréstimo Aceito ", 50, 0, 520, 50, 25, Color.white, corAzul, 0, 0, 3, 0, Color.white));
+        windowEmprestimoAceito.add(segueEmprestimo);
+        windowEmprestimoAceito.add(getContaUser);
+        return windowEmprestimoAceito;
+    }
+    public JPanel EmprestimoNegado(JPanel proxima){
+        return windowEmprestimo;
+    }
+    
 }
