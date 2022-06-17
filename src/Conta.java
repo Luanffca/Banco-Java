@@ -19,7 +19,7 @@ public class Conta {
 		this.senha = senha;
 	}
 
-	public void setCliente(int cliente) {
+    public void setCliente(int cliente) {
 		this.cliente = cliente;
 	}
 

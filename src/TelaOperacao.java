@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.MouseAdapter;
+import java.sql.ResultSet;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,8 @@ public class TelaOperacao {
     static Conexao con = new Conexao();
     static Cliente cliente = null;
     static Conta conta = null;
+    static Cliente newCliente = null;
+    static Conta newConta = null;
     static JTextField getAgencia;
     static JTextField getOperacao;
     static JTextField getNumeroConta;
@@ -137,6 +140,202 @@ public class TelaOperacao {
                 }
             }
         }
+    }
+    public static JPanel TelaCadastrar(JPanel telaPrincipal, JPanel panelVerificaSenha){
+        JPanel telaCadastrar = new JPanel();
+        telaCadastrar.setBackground(corCinza);
+        telaCadastrar.setLayout(null);
+        telaCadastrar.setVisible(false);
+        MaskFormatter mascaraCPF = null;
+        MaskFormatter mascaraCEP = null;
+        MaskFormatter mascaraNumero = null;
+        MaskFormatter mascaraData = null;
+        MaskFormatter mascaraSenha = null;
+        try {
+            mascaraCPF = new MaskFormatter("###.###.###-##");
+            mascaraCEP = new MaskFormatter("#####-###");
+            mascaraNumero = new MaskFormatter("(##) # ####-####");
+            mascaraData = new MaskFormatter("##/##/####");
+            mascaraSenha = new MaskFormatter("####");
+        } catch (ParseException e2) {
+            e2.printStackTrace();
+        }
+        JComboBox<String> tipoCliente = new JComboBox<String>();
+        tipoCliente.addItem("cliente");
+        tipoCliente.addItem("caixa");
+        tipoCliente.addItem("secretario");
+        tipoCliente.addItem("gerente");
+        tipoCliente.setBounds(350, 110, 110, 30);
+        tipoCliente.setFont(new Font("Arial", Font.PLAIN, 20));
+        tipoCliente.setBackground(Color.white);
+        tipoCliente.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+
+        JComboBox<String> CadastrarTipo = new JComboBox<String>();
+        CadastrarTipo.addItem("Corrente");
+        CadastrarTipo.addItem("Poupança");
+        CadastrarTipo.setBounds(90, 540, 150, 30);
+        CadastrarTipo.setFont(new Font("Arial", Font.PLAIN, 20));
+        CadastrarTipo.setBackground(Color.white);
+        CadastrarTipo.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+
+        JTextField getNome = campos.campoCadastrar(40, 110, 300, 30);
+        JTextField getUsuario = campos.campoCadastrar(40, 180, 200, 30);
+        JTextField getEndereco = campos.campoCadastrar(40, 320, 240, 30);
+        JTextField getRG = campos.campoCadastrar(260, 250, 200, 30);
+        JTextField getEmail = campos.campoCadastrar(40, 390, 240, 30);
+
+        JFormattedTextField getData = new JFormattedTextField(mascaraData);
+        getData.setFont(new Font("Arial", Font.PLAIN, 20));
+        getData.setBounds(260, 180, 200, 30);
+        getData.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+        JFormattedTextField getCEP = new JFormattedTextField(mascaraCEP);
+        getCEP.setFont(new Font("Arial", Font.PLAIN, 20));
+        getCEP.setBounds(300, 320, 160, 30);
+        getCEP.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+        JFormattedTextField getCPF = new JFormattedTextField(mascaraCPF);
+        getCPF.setFont(new Font("Arial", Font.PLAIN, 20));
+        getCPF.setBounds(40, 250, 200, 30);
+        getCPF.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+        JFormattedTextField getCelular = new JFormattedTextField(mascaraNumero);
+        getCelular.setFont(new Font("Arial", Font.PLAIN, 20));
+        getCelular.setBounds(300, 390, 160, 30);
+        getCelular.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+        JPasswordField getSenha = new JPasswordField();
+        getSenha.setFont(new Font("Arial", Font.PLAIN, 20));
+        getSenha.setBounds(100, 460, 300, 30);
+        getSenha.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+        JButton cadastrar = botoes.botao("Cadastrar", corAmarelo, Color.black, 100, 610, 310, 40, 30);
+        JFormattedTextField senhaConta = new JFormattedTextField(mascaraSenha);
+        senhaConta.setBounds(350, 540, 100, 30);
+        senhaConta.setFont(new Font("Arial", Font.PLAIN, 20));
+        senhaConta.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+
+        telaCadastrar.add(getNome);
+        telaCadastrar.add(getUsuario);
+        telaCadastrar.add(getEndereco);
+        telaCadastrar.add(getRG);
+        telaCadastrar.add(getEmail);
+        telaCadastrar.add(getData);
+        telaCadastrar.add(getCPF);
+        telaCadastrar.add(getCEP);
+        telaCadastrar.add(getCelular);
+        telaCadastrar.add(getSenha);
+        telaCadastrar.add(tipoCliente);
+        telaCadastrar.add(cadastrar);
+        telaCadastrar.add(CadastrarTipo);
+        telaCadastrar.add(senhaConta);
+        telaCadastrar.add(textos.textos("Nome Completo", 40, 80, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Vínculo", 350, 80, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("CEP", 300, 290, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Endereço", 40, 290, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Data de Nascimento", 260, 150, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Usuário", 40, 150, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("CPF", 40, 220, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("RG", 260, 220, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Email", 40, 360, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Numero de celular", 300, 360, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Senha", 100, 430, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Dados da Conta", 200, 500, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Tipo", 40, 540, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos("Senha", 280, 540, 300, 30, 20, Color.white));
+        telaCadastrar.add(textos.textos(0, 500, 520, 80, corAzul));
+        telaCadastrar.add(botoes.botaoVoltar(telaCadastrar, telaPrincipal));
+        telaCadastrar.add(textos.textos(" Cadastrar Conta ", 50, 0, 520, 50, 25, Color.white, corAzul, 0, 0, 3, 0, Color.white));
+
+        cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(getCPF.getText().length());
+
+                if (getNome.getText().isEmpty()) {
+                    getNome.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getNome.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getUsuario.getText().isEmpty()) {
+                    getUsuario.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getUsuario.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getData.getText().equals("  /  /    ")) {
+                    getData.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getData.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getCPF.getText().equals("   .   .   -  ")) {
+                    getCPF.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getCPF.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getRG.getText().isEmpty()) {
+                    getRG.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getRG.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getEndereco.getText().isEmpty()) {
+                    getEndereco.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getEndereco.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getCEP.getText().equals("     -   ")) {
+                    getCEP.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getCEP.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getEmail.getText().isEmpty()) {
+                    getEmail.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getEmail.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getCelular.getText().equals("(  )       -    ")) {
+                    getCelular.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getCelular.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+                if (getSenha.getText().isEmpty()) {
+                    getSenha.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                } else
+                    getSenha.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.black));
+
+                if (getNome.getText().isEmpty() || getUsuario.getText().isEmpty()
+                        || getData.getText().equals("  /  /    ") || getCPF.getText().equals("   .   .   -  ")
+                        || getRG.getText().isEmpty() || getEndereco.getText().isEmpty()
+                        || getCEP.getText().equals("     -   ") || getEmail.getText().isEmpty()
+                        || getCelular.getText().equals("(  )       -    ") || getSenha.getText().isEmpty()) {
+                } else {
+                    if (senhaConta.getText().equals("    ")) {
+                        senhaConta.setBorder(BorderFactory.createMatteBorder(1, 2, 2, 1, Color.red));
+                    } else {
+                            String operacao;
+                            String tipo = String.valueOf(tipoCliente.getSelectedItem());
+                            Double cheque;
+                            if (CadastrarTipo.getSelectedIndex() == 1) {
+                                operacao = "001";
+                                cheque = 300.0;
+                            } else {
+                                operacao = "013";
+                                cheque = 0.0;
+                            }
+    
+                            String newSenha = new String(getSenha.getPassword());
+                            newCliente = new Cliente(tipo, 1, getNome.getText(), getUsuario.getText(), getData.getText(), getCPF.getText(), getRG.getText(), getEndereco.getText(), getCEP.getText(), getEmail.getText(), getCelular.getText(), newSenha);
+    
+                                getNome.setText(""); 
+                                getUsuario.setText(""); 
+                                getData.setText("");
+                                getCPF.setText("");
+                                getRG.setText("");
+                                getEndereco.setText("");
+                                getCEP.setText("");
+                                getEmail.setText("");
+                                getCelular.setText("");
+                                getSenha.setText(""); 
+
+                                panelVerificaSenha.setVisible(true);
+    
+                            } catch (Exception es) {
+                                es.printStackTrace();
+                            }
+    
+                        
+                    }
+                }
+
+            }
+        });
+
+        telaCadastrar.setBounds(0, 0, 520, 720);
+        return telaCadastrar;
     }
     public static JPanel TelaConta(JPanel telaPrincipal){
         JPanel telaConta = new JPanel();

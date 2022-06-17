@@ -16,7 +16,7 @@ create table Cliente(
 create table Conta(
 	numero serial unique,
 	agencia int,
-	operacao int,
+	operacao char(3),
 	saldo numeric,
 	cheque numeric,
 	cliente bigint unique,

@@ -87,11 +87,12 @@ public class TelaPrincipal {
         JPanel telaSacar = TelaOperacao.TelaSacar(telaPrincipal, panelVerificaSenha);
         JPanel telaTransferir = TelaOperacao.TelaTransferir(telaPrincipal, panelVerificaSenha);
         JPanel telaConta = TelaOperacao.TelaConta(telaPrincipal);
+        JPanel telaCadastrar = TelaOperacao.TelaCadastrar(telaPrincipal, panelVerificaSenha);
 
         // TELA INICIAL Diretor
         JButton contaDiretor = botoes.botaoInicial(" Minha Conta", 0, 210, telaPrincipal, telaConta, op);
         JButton EmprestimoDiretor = botoes.botaoInicial(" Empréstimo", 0, 280, telaPrincipal, telaDepositar, op);
-        JButton CadastrarConta = botoes.botaoInicial(" Cadastrar conta", 0, 350, telaPrincipal, telaDepositar, op);
+        JButton CadastrarConta = botoes.botaoInicial(" Cadastrar conta", 0, 350, telaPrincipal, telaCadastrar, op);
         JButton showFunci = botoes.botaoInicial(" Funcionários", 0, 420, telaPrincipal, telaDepositar, op);
 
         inicioDiretor.setBackground(corCinza);
@@ -123,7 +124,7 @@ public class TelaPrincipal {
         JButton sacar = botoes.botaoInicial(" Sacar", 0, 280, telaPrincipal, telaSacar, op);
         JButton extrato = botoes.botaoInicial(" Extrato", 0, 350, telaPrincipal, panelExtrato, op);
         JButton transferir = botoes.botaoInicial(" Transferir", 0, 420, telaPrincipal, telaTransferir, op);
-        JButton emprestimo = botoes.botaoInicial(" Empréstimo", 0, 490, telaPrincipal, telaTransferir, op);
+        JButton emprestimo = botoes.botaoInicial(" Empréstimo", 0, 490, telaPrincipal, panelEmprestimo, op);
         JButton minhaConta = botoes.botaoInicial(" Conta", 0, 560, telaPrincipal, telaConta, op);
 
         inicioCliente.setBackground(corCinza);
@@ -276,6 +277,7 @@ public class TelaPrincipal {
         panelVerificaSenha.setBounds(0, 0, 520, 720);
         panelExtrato.setBounds(0, 0, 520, 720);
         scroll.setSize(new DimensionUIResource(505, 630));
+        panelEmprestimo.setSize(new DimensionUIResource(505, 630));
 
         window.setBounds(0, 0, 520, 720);
         window.add(telaDepositar);
@@ -284,6 +286,8 @@ public class TelaPrincipal {
         window.add(telaConta);
         window.add(telaPrincipal);
         window.add(panelExtrato);
+        window.add(panelEmprestimo);
+        window.add(telaCadastrar);
         window.add(panelVerificaSenha);
         return window;
     }
