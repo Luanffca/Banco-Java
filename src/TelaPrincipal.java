@@ -278,6 +278,7 @@ public class TelaPrincipal {
         panelExtrato.setBounds(0, 0, 520, 720);
         scroll.setSize(new DimensionUIResource(505, 630));
         panelEmprestimo.setSize(new DimensionUIResource(505, 630));
+        panelEmprestimoAceito.setSize(new DimensionUIResource(505, 630));
 
         window.setBounds(0, 0, 520, 720);
         window.add(telaDepositar);
@@ -287,6 +288,7 @@ public class TelaPrincipal {
         window.add(telaPrincipal);
         window.add(panelExtrato);
         window.add(panelEmprestimo);
+        window.add(panelEmprestimoAceito);
         window.add(telaCadastrar);
         window.add(panelVerificaSenha);
         return window;
@@ -321,7 +323,69 @@ public class TelaPrincipal {
             chequeInicial.setForeground(Color.white);
         }
     }
+    /*
+    public static void criaConta(){
+        Cliente newCliente = TelaOperacao.getNewCliente();
+                String operacao;
+                Double cheque;
+                if () {
+                    operacao = "001";
+                    cheque = 300.0;
+                } else {
+                    operacao = "013";
+                    cheque = 0.0;
+                }
+                con.Cadastra(newCliente.getTipo(), newCliente.getNome(), newCliente.getUsuario(), newCliente.getDataNascimento(),
+                        newCliente.getCPF(), newCliente.getRG(), newCliente.getEndereco(), newCliente.getCep(),
+                        newCliente.getEmail(), newCliente.getCelular(), newCliente.getSenha());
+                try {
+                    ResultSet rsCliente = con.getUsuario(newCliente.getUsuario());
+                    while (rsCliente.next()) {
+                        newCliente = new Cliente(rsCliente.getString("tipo"), rsCliente.getInt("id"),
+                                rsCliente.getString("nome"), rsCliente.getString("usuario"),
+                                rsCliente.getString("datanascimento"), rsCliente.getString("cpf"),
+                                rsCliente.getString("rg"), rsCliente.getString("endereco"),
+                                rsCliente.getString("cep"), rsCliente.getString("email"),
+                                rsCliente.getString("celular"), rsCliente.getString("senha"));
+                    }
+                    con.criaConta(newCliente.getId(), cheque, operacao, senhaConta.getText());
+                    ResultSet rsConta = con.getConta(cliente.getId());
+                    try {
+                        while (rsConta.next()) {
+                            conta = new Conta(rsConta.getInt("numero"), rsConta.getInt("agencia"),
+                                    rsConta.getString("operacao"), rsConta.getDouble("saldo"),
+                                    rsConta.getDouble("cheque"), rsConta.getInt("cliente"),
+                                    rsConta.getString("senha"));
+                        }
+                    } catch (Exception el) {
+                        el.printStackTrace();
+                    }
+                    Cadastrar.setVisible(false);
+                    getNome.setText(""); 
+                    getUsuario.setText(""); 
+                    getData.setText("");
+                    getCPF.setText("");
+                    getRG.setText("");
+                    getEndereco.setText("");
+                    getCEP.setText("");
+                    getEmail.setText("");
+                    getCelular.setText("");
+                    getSenha.setText(""); 
+                    Entrar.setVisible(true);
+                    TelaPrincipal.setCliente(cliente);
+                    TelaPrincipal.setConta(conta);
+                    TelaPrincipal.atualizaTela();
+                    tpConta.setVisible(false);
+                    telaPrincipal.setVisible(true);
 
+                } catch (Exception es) {
+                    es.printStackTrace();
+                }
+
+            }
+        }
+    }
+*/
     public static void saca() {
         double ValorOperacao = TelaOperacao.getValorOperacao();
         if (conta.getOperacao().equals("001")) {

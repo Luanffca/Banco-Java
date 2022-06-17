@@ -438,6 +438,7 @@ public class App {
                             getEmail.setText("");
                             getCelular.setText("");
                             getSenha.setText(""); 
+                            senhaConta.setText("");
                             Entrar.setVisible(true);
                             TelaPrincipal.setCliente(cliente);
                             TelaPrincipal.setConta(conta);

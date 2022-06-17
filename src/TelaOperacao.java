@@ -31,6 +31,7 @@ public class TelaOperacao {
     static JLabel campoInicial;
     public static double ValorOperacao;
     static int qntExtratos;
+    static String CadastrarTipoConta;
 
     static JLabel saldoSaque;
     static JLabel chequeSaque;
@@ -300,10 +301,9 @@ public class TelaOperacao {
                             String tipo = String.valueOf(tipoCliente.getSelectedItem());
                             Double cheque;
                             if (CadastrarTipo.getSelectedIndex() == 1) {
-                                operacao = "001";
-                                cheque = 300.0;
+                                CadastrarTipoConta = "001";
                             } else {
-                                operacao = "013";
+                                CadastrarTipoConta = "001";
                                 cheque = 0.0;
                             }
     
@@ -320,7 +320,6 @@ public class TelaOperacao {
                                 getEmail.setText("");
                                 getCelular.setText("");
                                 getSenha.setText(""); 
-
                                 panelVerificaSenha.setVisible(true);
     
                         
@@ -773,6 +772,9 @@ public class TelaOperacao {
 
     public static double getValorOperacao() {
         return ValorOperacao;
+    }
+    public static Cliente getNewCliente() {
+        return newCliente;
     }
 
     public static JTextField campoValor(int Align,int X, int Y, int W, int H, int F, Color corTexto, Color corFundo, int T, int L, int B, int R,
