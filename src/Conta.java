@@ -1,10 +1,7 @@
 
-public  class Conta{
+public class Conta {
 
 	private int numero;
-	private String pixnumero;
-	private String pixemail;
-	private String pixcpf;
 	private int agencia;
 	private String operacao;
 	private double saldo;
@@ -12,11 +9,8 @@ public  class Conta{
 	private int cliente;
 	private String senha;
 
-	Conta(int numero, String pixnumero, String pixemail, String pixcpf, int agencia, String operacao, Double saldo, Double cheque, int cliente, String senha){
+	Conta(int numero, int agencia, String operacao, Double saldo, Double cheque, int cliente, String senha) {
 		this.numero = numero;
-		this.pixnumero = pixnumero;
-		this.pixemail = pixemail;
-		this.pixcpf = pixcpf;
 		this.agencia = agencia;
 		this.operacao = operacao;
 		this.saldo = saldo;
@@ -24,27 +18,11 @@ public  class Conta{
 		this.cliente = cliente;
 		this.senha = senha;
 	}
-	public void setPixnumero(String pixnumero) {
-		this.pixnumero = pixnumero;
-	}
-	public String getPixnumero() {
-		return pixnumero;
-	}
-	public void setPixemail(String pixemail) {
-		this.pixemail = pixemail;
-	}
-	public String getPixemail() {
-		return pixemail;
-	}
-	public void setPixcpf(String pixcpf) {
-		this.pixcpf = pixcpf;
-	}
-	public String getPixcpf() {
-		return pixcpf;
-	}
+
 	public void setCliente(int cliente) {
 		this.cliente = cliente;
 	}
+
 	public int getCliente() {
 		return cliente;
 	}
@@ -56,16 +34,16 @@ public  class Conta{
 	public double getCheque() {
 		return cheque;
 	}
-	
-	public double getSaldo(){
+
+	public double getSaldo() {
 		return this.saldo;
 	}
 
 	public void setSaldo(double saldo) {
-		this.saldo=saldo;
+		this.saldo = saldo;
 	}
 
-	public int getAgencia(){
+	public int getAgencia() {
 		return this.agencia;
 	}
 
@@ -73,7 +51,7 @@ public  class Conta{
 		this.agencia = agencia;
 	}
 
-	public int getNumero(){
+	public int getNumero() {
 		return this.numero;
 	}
 
@@ -81,13 +59,14 @@ public  class Conta{
 		this.numero = numero;
 	}
 
-	public String getOperacao(){
+	public String getOperacao() {
 		return this.operacao;
 	}
 
 	public void setOperacao(String operacao) {
 		this.operacao = operacao;
 	}
+
 	public String getSenha() {
 		return senha;
 	}

@@ -1,5 +1,6 @@
 create table Cliente(
 	id serial unique,
+	tipo text,
 	nome text,
 	usuario text unique,
 	dataNascimento text,
@@ -14,9 +15,6 @@ create table Cliente(
 );
 create table Conta(
 	numero serial unique,
-	pixnumero text unique,
-	pixemail text unique,
-	pixcpf text unique,
 	agencia int,
 	operacao int,
 	saldo numeric,
@@ -24,10 +22,7 @@ create table Conta(
 	cliente bigint unique,
 	senha char(4) unique,
 	primary key(numero),
-	foreign key(cliente) references Cliente(id),
-	foreign key(pixnumero) references Cliente(celular),
-	foreign key(pixemail) references Cliente(email),
-	foreign key(pixcpf) references Cliente(cpf)
+	foreign key(cliente) references Cliente(id)
 );
 
 CREATE TABLE Extrato(
