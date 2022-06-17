@@ -323,10 +323,6 @@ public class TelaOperacao {
 
                                 panelVerificaSenha.setVisible(true);
     
-                            } catch (Exception es) {
-                                es.printStackTrace();
-                            }
-    
                         
                     }
                 }
