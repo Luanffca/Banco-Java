@@ -1,3 +1,4 @@
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ public class Cliente {
 	List<Cliente> clienteCC = new ArrayList<>();
 
 	private int id;
+	private String tipo;
 	private String nome;
 	private String usuario;
 	private String dataNascimento;
@@ -19,8 +21,12 @@ public class Cliente {
 	private String celular;
 	private String senha;
 
-	Cliente(){}
-	Cliente(int id, String nome, String usuario, String dataNascimento, String cpf, String rg, String endereco, String cep, String email, String celular, String senha){
+	Cliente() {
+	}
+
+	Cliente(String tipo, int id, String nome, String usuario, String dataNascimento, String cpf, String rg,
+			String endereco, String cep, String email, String celular, String senha) {
+		this.tipo = tipo;
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
@@ -34,25 +40,34 @@ public class Cliente {
 		this.senha = senha;
 	}
 
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getNome(){
+	public String getNome() {
 		return this.nome;
 	}
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	public String getUsuario(){
+	public String getUsuario() {
 		return this.usuario;
 	}
+
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
@@ -60,11 +75,12 @@ public class Cliente {
 	public String getDataNascimento() {
 		return dataNascimento;
 	}
+
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getRG(){
+	public String getRG() {
 		return this.rg;
 	}
 
@@ -72,20 +88,19 @@ public class Cliente {
 		this.rg = rg;
 	}
 
-	public String getCPF(){
+	public String getCPF() {
 		return this.cpf;
 	}
 
 	public void setCPF(String cpf) {
-		if(isCPF(cpf) == true){
+		if (isCPF(cpf) == true) {
 			this.cpf = imprimeCPF(cpf);
-		}
-		else{
+		} else {
 			System.out.println("Erro, CPF invalido !!!\n");
 		}
 	}
 
-	public String getEndereco(){
+	public String getEndereco() {
 		return this.endereco;
 	}
 
@@ -96,89 +111,94 @@ public class Cliente {
 	public String getCep() {
 		return cep;
 	}
+
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
-	public String getEmail(){
+	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email){
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	public String getCelular() {
 		return celular;
 	}
+
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
-	public String getSenha(){
+	public String getSenha() {
 		return this.senha;
 	}
 
-	public void setSenha(String senha){
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-    public boolean isCPF(String CPF) {
-        if (CPF.equals("00000000000") ||
-            CPF.equals("11111111111") ||
-            CPF.equals("22222222222") || CPF.equals("33333333333") ||
-            CPF.equals("44444444444") || CPF.equals("55555555555") ||
-            CPF.equals("66666666666") || CPF.equals("77777777777") ||
-            CPF.equals("88888888888") || CPF.equals("99999999999") ||
-            (CPF.length() != 11))
-            return(false);
+	public boolean isCPF(String CPF) {
+		if (CPF.equals("00000000000") ||
+				CPF.equals("11111111111") ||
+				CPF.equals("22222222222") || CPF.equals("33333333333") ||
+				CPF.equals("44444444444") || CPF.equals("55555555555") ||
+				CPF.equals("66666666666") || CPF.equals("77777777777") ||
+				CPF.equals("88888888888") || CPF.equals("99999999999") ||
+				(CPF.length() != 11))
+			return (false);
 
-        char dig10, dig11;
-        int sm, i, r, num, peso;
+		char dig10, dig11;
+		int sm, i, r, num, peso;
 
-        try {
-            sm = 0;
-            peso = 10;
-            for (i=0; i<9; i++) {
-       
-            num = (int)(CPF.charAt(i) - 48);
-            sm = sm + (num * peso);
-            peso = peso - 1;
-            }
+		try {
+			sm = 0;
+			peso = 10;
+			for (i = 0; i < 9; i++) {
 
-            r = 11 - (sm % 11);
-            if ((r == 10) || (r == 11))
-                dig10 = '0';
-            else dig10 = (char)(r + 48); 
+				num = (int) (CPF.charAt(i) - 48);
+				sm = sm + (num * peso);
+				peso = peso - 1;
+			}
 
-            sm = 0;
-            peso = 11;
-            for(i=0; i<10; i++) {
-            num = (int)(CPF.charAt(i) - 48);
-            sm = sm + (num * peso);
-            peso = peso - 1;
-            }
-            r = 11 - (sm % 11);
-            if ((r == 10) || (r == 11))
-                 dig11 = '0';
-            else dig11 = (char)(r + 48);
+			r = 11 - (sm % 11);
+			if ((r == 10) || (r == 11))
+				dig10 = '0';
+			else
+				dig10 = (char) (r + 48);
 
-            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
-                 return(true);
-            else return(false);
-                } catch (InputMismatchException erro) {
-                return(false);
-            }
-        }
+			sm = 0;
+			peso = 11;
+			for (i = 0; i < 10; i++) {
+				num = (int) (CPF.charAt(i) - 48);
+				sm = sm + (num * peso);
+				peso = peso - 1;
+			}
+			r = 11 - (sm % 11);
+			if ((r == 10) || (r == 11))
+				dig11 = '0';
+			else
+				dig11 = (char) (r + 48);
 
-    public String imprimeCPF(String CPF) {
-        return(CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." +
-            CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
-        }
+			if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
+				return (true);
+			else
+				return (false);
+		} catch (InputMismatchException erro) {
+			return (false);
+		}
+	}
 
-	
-    @Override
-	public String toString(){
-		return "ID: " + getId() + " Nome: " + getNome() +" \nRG: "+ getRG()+"\n CPF: "+getCPF()+"\n Endereco: "+getEndereco();
+	public String imprimeCPF(String CPF) {
+		return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." +
+				CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+	}
+
+	@Override
+	public String toString() {
+		return "ID: " + getId() + " Nome: " + getNome() + " \nRG: " + getRG() + "\n CPF: " + getCPF() + "\n Endereco: "
+				+ getEndereco();
 	}
 }
